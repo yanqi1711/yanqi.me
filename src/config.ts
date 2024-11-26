@@ -1,12 +1,12 @@
-import type { Site, Ui, Features } from './types'
+import type { Features, Site, Ui } from './types'
 
 export const SITE: Site = {
   website: 'https://astro-antfustyle-theme.vercel.app/',
   base: '/',
-  title: 'Astro AntfuStyle Theme',
+  title: 'Yan Qi',
   description:
     'A customizable, feature-rich Astro theme for blog and portfolio creation',
-  author: 'Stephanie Lin',
+  author: 'Yan Qi',
   lang: 'en',
   ogLocale: 'en_US',
 }
@@ -37,16 +37,22 @@ export const UI: Ui = {
   ],
   socialLinks: [
     {
-      link: 'https://github.com/lin-stephanie/astro-antfustyle-theme',
+      link: 'https://github.com/yanqi1711',
       title: 'AntfuStyle on Github',
       displayMode: 'alwaysIcon',
       icon: 'i-uil-github-alt',
     },
     {
-      link: 'https://github.com/lin-stephanie/astro-antfustyle-theme',
+      link: 'https://github.com/yanqi1712',
       title: `${SITE.author} on Twitter`,
       displayMode: 'alwaysIcon',
       icon: 'i-ri-twitter-x-fill',
+    },
+    {
+      link: 'https://pan.yanqi.me',
+      title: `Network disk`,
+      displayMode: 'alwaysIcon',
+      icon: 'i-material-symbols:cloud',
     },
   ],
   navBarLayout: {
@@ -54,9 +60,9 @@ export const UI: Ui = {
     right: [
       'internalNavs',
       'socialLinks',
-      'searchButton',
+      // 'searchButton',
       'themeButton',
-      'rssLink',
+      // 'rssLink',
     ],
     mergeOnMobile: true,
   },
