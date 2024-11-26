@@ -1,0 +1,58 @@
+---
+
+---
+
+<button
+  id="nav-open-button"
+  class="hidden lt-md:block op-60 hover:op-100 op-transition"
+  title="Navigation"
+  aria-label="Navigation"
+  aria-expanded="false"
+  aria-controls="nav-panel"
+>
+  <div class="i-ri-menu-line"></div>
+</button>
+
+<div
+  id="nav-panel"
+  class="z-200 fixed top-20 right-8
+    hidden! flex flex-col gap-6
+    py-6 px-10 rounded-lg lt-md:(w-90% left-5% right-5%)
+    bg-[var(--c-bg)] shadow-c"
+>
+  <button
+    id="nav-close-button"
+    class="self-end mb--6 op-60 hover:op-100 op-transition"
+  >
+    <div class="i-ri-close-large-fill"></div>
+  </button>
+  <ul>
+    <slot name="text" />
+  </ul>
+  <div class="flex justify-center items-center gap-4">
+    <slot name="icon" />
+  </div>
+</div>
+
+<script>
+  /* Open or close nav panel when user click on button */
+  import { dispatchToggleBackdrop, toggleFadeEffect } from '~/utils/animation'
+
+  document.addEventListener('astro:page-load', () => {
+    const handleBtnClickToOpen = () => {
+      dispatchToggleBackdrop(true)
+      toggleFadeEffect('nav-panel', true, 'hidden!')
+    }
+
+    const navOpenButton = document.getElementById('nav-open-button')
+    navOpenButton?.addEventListener('click', handleBtnClickToOpen)
+
+    const handleBtnClickToClose = () => {
+      toggleFadeEffect('nav-panel', false, 'hidden!')
+      dispatchToggleBackdrop(false)
+    }
+
+    const navCloseButton = document.getElementById('nav-close-button')
+    navCloseButton?.addEventListener('click', handleBtnClickToClose)
+  })
+</script>
