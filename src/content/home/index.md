@@ -2,9 +2,9 @@ Hello, I'm a developer from China.<br>
 
 I am 23 years old. Now, I'm studying for [Postgraduate Entrance Examination](https://github.com/yanqi1711/pee).<br>
 
-In 2023-2024, I worked as an embedded developer in a smart driving service industry, using C, C++, Python, Shell and other development languages, mainly dealing with operating system development, ROS software development and unmanned driving camera driver development.<br>
+From 2023-2024, I worked as an embedded developer in a smart driving service industry, using C, C++, Python, Shell, and other development languages, mainly dealing with operating system development, ROS software development, and unmanned driving camera driver development.<br>
 
-And, My future goal is to be an embedded full-stack developer in the real smart industry. If you are interested in giving me a job, please contact me.
+And My future goal is to be an embedded full-stack developer in the real smart industry. If you are interested in hiring me, please contact me.
 
 ---
 
