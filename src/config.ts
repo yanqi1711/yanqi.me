@@ -1,11 +1,11 @@
 import type { Features, Site, Ui } from './types'
 
 export const SITE: Site = {
-  website: 'https://astro-antfustyle-theme.vercel.app/',
+  website: 'https://mygo.uno/',
   base: '/',
   title: 'Yan Qi',
   description:
-    'A customizable, feature-rich Astro theme for blog and portfolio creation',
+    'yanqi\'s personal website',
   author: 'Yan Qi',
   lang: 'en',
   ogLocale: 'en_US',
@@ -43,13 +43,13 @@ export const UI: Ui = {
       icon: 'i-uil-github-alt',
     },
     {
-      link: 'https://github.com/yanqi1712',
+      link: 'https://x.com/yanqi1712',
       title: `${SITE.author} on Twitter`,
       displayMode: 'alwaysIcon',
       icon: 'i-ri-twitter-x-fill',
     },
     {
-      link: 'https://pan.yanqi.me',
+      link: 'https://pan.mygo.uno',
       title: `Network disk`,
       displayMode: 'alwaysIcon',
       icon: 'i-material-symbols:cloud',
@@ -62,7 +62,7 @@ export const UI: Ui = {
       'socialLinks',
       // 'searchButton',
       'themeButton',
-      // 'rssLink',
+      'rssLink',
     ],
     mergeOnMobile: true,
   },

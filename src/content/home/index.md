@@ -19,7 +19,7 @@ And My future goal is to be an embedded full-stack developer in the real smart i
       <span i-simple-icons-github></span> GitHub
     </a>
     <a
-      href="https://github.com/yanqi1711"
+      href="https://bsky.app/profile/yanqi.me"
       target="_blank"
       aria-label="Find me on GitHub (external link)"
     >
