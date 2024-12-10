@@ -38,7 +38,7 @@ export const UI: Ui = {
   socialLinks: [
     {
       link: 'https://github.com/yanqi1711',
-      title: 'AntfuStyle on Github',
+      title: 'YanQi on Github',
       displayMode: 'alwaysIcon',
       icon: 'i-uil-github-alt',
     },
