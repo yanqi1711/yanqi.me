@@ -1,7 +1,7 @@
 import type { Features, Site, Ui } from './types'
 
 export const SITE: Site = {
-  website: 'https://mygo.uno/',
+  website: 'https://yanqi.me/',
   base: '/',
   title: 'Yan Qi',
   description:
