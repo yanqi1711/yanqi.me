@@ -49,7 +49,7 @@ export const UI: Ui = {
       icon: 'i-ri-twitter-x-fill',
     },
     {
-      link: 'https://pan.mygo.uno',
+      link: 'https://pan.yanqi.me',
       title: `Network disk`,
       displayMode: 'alwaysIcon',
       icon: 'i-material-symbols:cloud',
