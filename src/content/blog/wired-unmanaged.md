@@ -20,7 +20,7 @@ sudo touch /etc/NetworkManager/conf.d/10-globally-managed-devices.conf
 ```
 
 2. Edit /etc/NetworkManager/NetworkManager.conf (needs to be done with sudo) changing the line managed=false to read managed=true
-[NetworkManager](../../assets/wired-unmanaged/managed.png)
+![NetworkManager](../../assets/wired-unmanaged/managed.png)
 
 3. Restart network manager with
 ```bash
