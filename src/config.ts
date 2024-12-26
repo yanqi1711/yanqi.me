@@ -68,8 +68,8 @@ export const UI: Ui = {
   },
   tabbedLayoutTabs: [
     { title: 'Changelog', path: '/changelog' },
-    { title: 'AstroBlog', path: '/feeds' },
-    { title: 'AstroStreams', path: '/streams' },
+    { title: 'Notes', path: '/notes' },
+    // { title: 'AstroStreams', path: '/streams' },
   ],
   maxGroupColumns: 3,
   showGroupItemColorOnHover: true,

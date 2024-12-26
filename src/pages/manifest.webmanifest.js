@@ -10,7 +10,7 @@ export async function GET() {
       { src: `${base}icon-192.png`, type: 'image/png', sizes: '192x192' },
       { src: `${base}icon-512.png`, type: 'image/png', sizes: '512x512' },
       {
-        src: `${base}icon-mask.png`,
+        src: `${base}icon-512.png`,
         type: 'image/png',
         sizes: '512x512',
         purpose: 'maskable',

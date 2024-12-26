@@ -56,7 +56,7 @@ const { title, description, ogImage, bgType, pubDate, lastModDate } =
       <slot />
       {
         Astro.url.pathname !== getUrl('/') && (
-          <div class="prose slide-enter animate-delay-1000! m-auto mt-8 print:hidden">
+          <div class="prose slide-enter animate-delay-800! m-auto mt-8 print:hidden">
             <slot name="share" />
             <br />
             <BackLink />
