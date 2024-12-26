@@ -38,4 +38,4 @@ change the line managed=false to read managed=true
 sudo service network-manager restart
 ```
 
-Then the network manager will work again. Thanks to [the author](https://askubuntu.com/users/823734/lou-burnard) of the solution.
+Then the network manager will work again. Thanks to [Lou Burnard](https://askubuntu.com/users/823734/lou-burnard) of the solution.
