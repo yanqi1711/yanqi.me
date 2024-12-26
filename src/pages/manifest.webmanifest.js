@@ -2,10 +2,10 @@ export async function GET() {
   const base = import.meta.env.BASE_URL
 
   const manifest = {
-    name: 'YanQi\'s Personal Website',
-    short_name: 'YanQi',
+    name: 'yanqi',
+    short_name: 'Q',
     description:
-      'YanQi\'s Personal Website',
+      'My Personal Website',
     icons: [
       { src: `${base}icon-192.png`, type: 'image/png', sizes: '192x192' },
       { src: `${base}icon-512.png`, type: 'image/png', sizes: '512x512' },

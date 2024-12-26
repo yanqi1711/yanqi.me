@@ -5,7 +5,7 @@ export const SITE: Site = {
   base: '/',
   title: 'Yan Qi',
   description:
-    'yanqi\'s personal website',
+    'My Personal Website',
   author: 'Yan Qi',
   lang: 'en',
   ogLocale: 'en_US',
