@@ -19,9 +19,19 @@ This problem is the first time I have seen it. I have configured it many times b
 sudo touch /etc/NetworkManager/conf.d/10-globally-managed-devices.conf
 ```
 
-2. Edit`/etc/NetworkManager/NetworkManager.conf`(needs to be done with sudo) changing the line `managed=false` to `managed=true` in the `[ifupdown]` section. The file should look like this:
+2. Edit the file with
+```bash /true/
+// /etc/NetworkManager/NeworkManager.conf
+[main]
+plugins=ifupdown,keyfile
 
-![NetworkManager](https://oss.itbaima.cn/hub/448/image-20241226xqppzfa11.png)
+[ifupdown]
+managed=true
+
+[device]
+wifi.scan-rand-mac-address=no
+```
+change the line managed=false to read managed=true
 
 3. Restart network manager with
 ```bash

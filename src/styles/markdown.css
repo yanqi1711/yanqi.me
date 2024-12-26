@@ -205,6 +205,10 @@ html.dark .prose {
   margin: 0.5em 0;
 }
 
+.expressive-code .title {
+  overflow: auto!important;
+}
+
 .expressive-code .copy button::before {
   display: none;
 }
