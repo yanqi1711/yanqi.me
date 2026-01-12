@@ -81,12 +81,17 @@ let sortedFeedItems: CollectionEntry<'feeds'>[] = []
 if (collectionType === 'feeds') {
   feedItems = await getCollection(collectionType)
 
-  sortedFeedItems = feedItems.sort((a, b) => {
-    if (!a.data.pubdate || !b.data.pubdate)
-      throw new Error("Feed item is missing 'pubdate' field.")
+  const validFeedItems = feedItems.filter(item => {
+    const hasDate = item.data && item.data.pubdate;
+    if (!hasDate) {
+      console.warn(`⚠️ 警告: 文件 ${item.id || '未知'} 缺少 pubdate 字段，已跳过。`);
+    }
+    return hasDate;
+  });
 
-    return b.data.pubdate.valueOf() - a.data.pubdate.valueOf()
-  })
+  sortedFeedItems = validFeedItems.sort((a, b) => {
+    return b.data.pubdate.valueOf() - a.data.pubdate.valueOf();
+  });
 
   if (tocEnabled) {
     const yearsSet = new Set<number>()
