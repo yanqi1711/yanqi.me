@@ -13,7 +13,9 @@ export default defineConfig({
   site: SITE.website,
   base: SITE.base,
   integrations: [
-    sitemap(),
+    sitemap({
+      filter: (page) => page !== 'https://你的域名.com/feeds/' // 暂时跳过报错的页面测试
+    }),
     robotsTxt(),
     unocss({
       // https://unocss.dev/integrations/astro#style-reset

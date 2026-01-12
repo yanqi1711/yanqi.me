@@ -21,7 +21,10 @@ interface Props {
 }
 
 const { collectionType, pageToc } = Astro.props
-const validCollectionType = ['blog', 'changelog', 'streams', 'feeds', 'notes']
+const VALID_COLLECTION_TYPE = ['blog', 'changelog', 'streams', 'feeds']
+const WARNING = `The '${collectionType}' collection type is not built-in.
+  Modify <code>ListView.astro</code> to render it.`
+
 
 /* Toc */
 const { toc } = FEATURES
@@ -81,30 +84,12 @@ let sortedFeedItems: CollectionEntry<'feeds'>[] = []
 if (collectionType === 'feeds') {
   feedItems = await getCollection(collectionType)
 
-  feedItems.forEach(item => {
-    if (!item.data?.pubdate) {
-      console.log("缺失日期的文件 ID:", item.id);
-    }
-  });
+  sortedFeedItems = feedItems.sort((a, b) => {
+    if (!a.data.pubdate || !b.data.pubdate)
+      throw new Error("Feed item is missing 'pubdate' field.")
 
-  // 1. 安全地获取并过滤数据
-  const validItems = (feedItems || []).filter(item => {
-    // 确保 item、item.data 以及 item.data.pubdate 都存在
-    return item && item.data && item.data.pubdate;
-  });
-
-  // 2. 安全排序
-  const sortedFeedItems = validItems.sort((a, b) => {
-    // 使用 .valueOf() 前再次确认
-    const timeA = new Date(a.data.pubdate).getTime();
-    const timeB = new Date(b.data.pubdate).getTime();
-    return timeB - timeA;
-  });
-
-  // 3. 检查结果
-  if (sortedFeedItems.length === 0) {
-    console.warn("⚠️ ListView: No valid feed items found with a pubdate.");
-  }
+    return b.data.pubdate.valueOf() - a.data.pubdate.valueOf()
+  })
 
   if (tocEnabled) {
     const yearsSet = new Set<number>()
@@ -118,12 +103,6 @@ if (collectionType === 'feeds') {
       .map((year) => year.toString())
   }
 }
-
-/* Exception */
-const warningHTML = `The '${collectionType}' collection type does not
-  belong to the built-in types 'blog', 'feeds', or 'streams'. You may
-  need to modify the <code>ListView.astro</code> logic for your defined
-  collection types to render the list.`
 ---
 
 {tocEnabled && <Toc {years} />}
@@ -253,8 +232,4 @@ const warningHTML = `The '${collectionType}' collection type does not
   )
 }
 
-{
-  !validCollectionType.includes(collectionType) && (
-    <Warning rawHTMLString={warningHTML} />
-  )
-}
+{!VALID_COLLECTION_TYPE.includes(collectionType) && <Warning html={WARNING} />}
