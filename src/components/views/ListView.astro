@@ -81,17 +81,30 @@ let sortedFeedItems: CollectionEntry<'feeds'>[] = []
 if (collectionType === 'feeds') {
   feedItems = await getCollection(collectionType)
 
-  const validFeedItems = feedItems.filter(item => {
-    const hasDate = item.data && item.data.pubdate;
-    if (!hasDate) {
-      console.warn(`⚠️ 警告: 文件 ${item.id || '未知'} 缺少 pubdate 字段，已跳过。`);
+  feedItems.forEach(item => {
+    if (!item.data?.pubdate) {
+      console.log("缺失日期的文件 ID:", item.id);
     }
-    return hasDate;
   });
 
-  sortedFeedItems = validFeedItems.sort((a, b) => {
-    return b.data.pubdate.valueOf() - a.data.pubdate.valueOf();
+  // 1. 安全地获取并过滤数据
+  const validItems = (feedItems || []).filter(item => {
+    // 确保 item、item.data 以及 item.data.pubdate 都存在
+    return item && item.data && item.data.pubdate;
   });
+
+  // 2. 安全排序
+  const sortedFeedItems = validItems.sort((a, b) => {
+    // 使用 .valueOf() 前再次确认
+    const timeA = new Date(a.data.pubdate).getTime();
+    const timeB = new Date(b.data.pubdate).getTime();
+    return timeB - timeA;
+  });
+
+  // 3. 检查结果
+  if (sortedFeedItems.length === 0) {
+    console.warn("⚠️ ListView: No valid feed items found with a pubdate.");
+  }
 
   if (tocEnabled) {
     const yearsSet = new Set<number>()
