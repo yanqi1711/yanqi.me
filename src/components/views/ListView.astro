@@ -81,11 +81,12 @@ let sortedFeedItems: CollectionEntry<'feeds'>[] = []
 if (collectionType === 'feeds') {
   feedItems = await getCollection(collectionType)
 
-  sortedFeedItems = feedItems.sort((a, b) => {
-    if (!a.data.pubdate || !b.data.pubdate)
-      throw new Error("Feed item is missing 'pubdate' field.")
+  // Filter out items that don't have a valid `pubdate` field to avoid
+  // breaking the build on environments where some feed entries are incomplete.
+  const validFeedItems = feedItems.filter((item) => Boolean(item.data.pubdate))
 
-    return b.data.pubdate.valueOf() - a.data.pubdate.valueOf()
+  sortedFeedItems = validFeedItems.sort((a, b) => {
+    return (b.data.pubdate as Date).valueOf() - (a.data.pubdate as Date).valueOf()
   })
 
   if (tocEnabled) {

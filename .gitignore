@@ -28,3 +28,7 @@ pnpm-debug.log*
 
 # Local
 .local
+
+# Cursor / agents
+.agents/
+.cursor/

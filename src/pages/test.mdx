@@ -1,0 +1,31 @@
+---
+title: 'Test Page'
+subtitle: 'Playground'
+description: 'A simple test page'
+bgType: plum
+toc: false
+ogImage: false
+---
+
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import StandardLayout from '~/layouts/StandardLayout.astro'
+
+<BaseLayout
+  title={frontmatter.title}
+  description={frontmatter.description}
+  bgType={frontmatter.bgType}
+  ogImage={frontmatter.ogImage}
+>
+  <StandardLayout title={frontmatter.title} subtitle={frontmatter.subtitle}>
+    <p>
+      This is a <strong>test page</strong>. You can use this page to try out
+      layout, components, or other experiments without affecting the main
+      content.
+    </p>
+    <p>
+      Feel free to edit <code>src/pages/test.mdx</code> to customize what you
+      want to test.
+    </p>
+  </StandardLayout>
+</BaseLayout>
+
