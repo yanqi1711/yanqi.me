@@ -23,7 +23,7 @@ And My future goal is to be an embedded full-stack developer in the real smart i
       target="_blank"
       aria-label="Find me on GitHub (external link)"
     >
-      <span i-ri-bluesky-fill></span> Bulesky
+      <span i-ri-bluesky-fill></span> BlueSky
     </a>
     <a
       href="https://x.com/yanqi1712"

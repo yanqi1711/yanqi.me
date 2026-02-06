@@ -97,6 +97,21 @@ export default defineConfig({
         uil: () => import('@iconify-json/uil/icons.json').then(m => m.default),
         carbon: () => import('@iconify-json/carbon/icons.json').then(m => m.default),
         mdi: () => import('@iconify-json/mdi/icons.json').then(m => m.default),
+        'simple-icons': () => import('@iconify-json/simple-icons/icons.json').then(m => m.default),
+        'material-symbols': () => import('@iconify-json/material-symbols/icons.json').then(m => m.default),
+        lucide: () => import('@iconify-json/lucide/icons.json').then(m => m.default),
+        la: () => import('@iconify-json/la/icons.json').then(m => m.default),
+        logos: () => import('@iconify-json/logos/icons.json').then(m => m.default),
+        cil: () => import('@iconify-json/cil/icons.json').then(m => m.default),
+        catppuccin: () => import('@iconify-json/catppuccin/icons.json').then(m => m.default),
+        'flat-color-icons': () => import('@iconify-json/flat-color-icons/icons.json').then(m => m.default),
+        bi: () => import('@iconify-json/bi/icons.json').then(m => m.default),
+        mynaui: () => import('@iconify-json/mynaui/icons.json').then(m => m.default),
+        'fluent-mdl2': () => import('@iconify-json/fluent-mdl2/icons.json').then(m => m.default),
+        'line-md': () => import('@iconify-json/line-md/icons.json').then(m => m.default),
+        tabler: () => import('@iconify-json/tabler/icons.json').then(m => m.default),
+        'icon-park': () => import('@iconify-json/icon-park/icons.json').then(m => m.default),
+        'ic': () => import('@iconify-json/ic/icons.json').then(m => m.default),
       },
       extraProperties: {
         'display': 'inline-block',
@@ -128,6 +143,14 @@ export default defineConfig({
     'left--4',
     'left-[14%]',
     'lt-lg:left--4',
+
+    /* Home page social links */
+    'i-simple-icons-github',
+    'i-simple-icons-instagram',
+    'i-ri-bluesky-fill',
+
+    /* RssLink component */
+    'i-lucide-rss',
 
     /* remark-directive-sugar */
     'i-carbon-logo-github',
