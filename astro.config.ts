@@ -8,22 +8,32 @@ import mdx from '@astrojs/mdx'
 import { remarkPlugins, rehypePlugins } from './plugins'
 import { SITE } from './src/config'
 
+const isCloudflarePages = process.env.CF_PAGES === '1'
+
+const integrations = [
+  robotsTxt(),
+  unocss({
+    // https://unocss.dev/integrations/astro#style-reset
+    injectReset: true,
+  }),
+  astroExpressiveCode(),
+  mdx(),
+]
+
+// `@astrojs/sitemap` 在 Cloudflare Pages 上目前会因为 `_routes` 未初始化而报
+// “Cannot read properties of undefined (reading 'reduce')”，
+// 这里在 CF Pages 构建时临时禁用 sitemap，避免构建失败。
+if (!isCloudflarePages) {
+  integrations.unshift(
+    sitemap()
+  )
+}
+
 // https://docs.astro.build/en/reference/configuration-reference/
 export default defineConfig({
   site: SITE.website,
   base: SITE.base,
-  integrations: [
-    sitemap({
-      filter: (page) => page !== 'https://你的域名.com/feeds/' // 暂时跳过报错的页面测试
-    }),
-    robotsTxt(),
-    unocss({
-      // https://unocss.dev/integrations/astro#style-reset
-      injectReset: true,
-    }),
-    astroExpressiveCode(),
-    mdx(),
-  ],
+  integrations,
   markdown: {
     syntaxHighlight: false,
     remarkPlugins,
