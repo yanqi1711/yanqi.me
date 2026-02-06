@@ -92,6 +92,12 @@ export default defineConfig({
       prefixedOnly: false,
     }),
     presetIcons({
+      collections: {
+        ri: () => import('@iconify-json/ri/icons.json').then(m => m.default),
+        uil: () => import('@iconify-json/uil/icons.json').then(m => m.default),
+        carbon: () => import('@iconify-json/carbon/icons.json').then(m => m.default),
+        mdi: () => import('@iconify-json/mdi/icons.json').then(m => m.default),
+      },
       extraProperties: {
         'display': 'inline-block',
         'height': '1.2em',
