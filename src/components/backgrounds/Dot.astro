@@ -1,96 +1,115 @@
 ---
-// inspired by: https://github.com/antfu/antfu.me/blob/main/src/components/ArtDots.vue
+// Dot.astro
 ---
 
 <bg-dot
-  class="z--1 fixed top-0 bottom-0 left-0 right-0 pointer-events-none print:hidden dark:invert"
+  class="fixed inset-0 -z-1 pointer-events-none dark:invert"
 >
 </bg-dot>
 
 <script>
-  import p5 from 'p5'
-  import type { default as P5Instance } from 'p5'
+  import * as PIXI from "pixi.js";
+  import { createNoise3D } from "simplex-noise";
 
   class BgDotElement extends HTMLElement {
-    p5Instance: P5Instance | null
+    // 使用 JS 私有属性或普通属性，避免在 script 顶层引起解析错误
+    app = null;
+    noise3D = createNoise3D();
 
-    constructor() {
-      super()
-      this.p5Instance = null
-    }
+    async connectedCallback() {
+      // 初始化 PixiJS v8
+      this.app = new PIXI.Application();
 
-    connectedCallback() {
-      const sketch = (p: P5Instance) => {
-        const BACKGROUND = '#fff'
-        const SCALE = 200
-        const LENGTH = 10
-        const SPACING = 15
+      await this.app.init({
+        resizeTo: window,
+        backgroundAlpha: 0, // 透明背景，方便配合 CSS 控制
+        resolution: Math.min(
+          window.devicePixelRatio,
+          2,
+        ),
+        antialias: true,
+        autoDensity: true,
+      });
 
-        const width = window.innerWidth
-        const height = window.innerHeight
+      this.appendChild(this.app.canvas);
 
-        const existingPoints = new Set()
-        const points: { x: number; y: number; opacity: number }[] = []
+      const SCALE = 200;
+      const LENGTH = 10;
+      const SPACING = 15;
 
-        function getForceOnPoint(x: number, y: number, z: number) {
-          return (p.noise(x / SCALE, y / SCALE, z) - 0.5) * 2 * p.TWO_PI
-        }
+      // 修复 esbuild 报错的关键：先定义数据，避免复杂的 inline 类型声明
+      const points = [];
+      const { width, height } = this.app.screen;
 
-        function getLength(x: number, y: number, t: number) {
-          return (p.noise(x / SCALE, y / SCALE, t * 2) + 0.5) * LENGTH
-        }
-
-        function addPoints() {
-          for (let x = -SPACING / 2; x < width + SPACING; x += SPACING) {
-            for (let y = -SPACING / 2; y < height + SPACING; y += SPACING) {
-              const id = `${x}-${y}`
-              if (existingPoints.has(id)) continue
-              existingPoints.add(id)
-              points.push({ x, y, opacity: Math.random() * 0.5 + 0.5 })
-            }
-          }
-        }
-
-        p.setup = () => {
-          p.createCanvas(width, height)
-          p.background(BACKGROUND)
-          p.frameRate(30)
-          addPoints()
-        }
-
-        p.draw = () => {
-          p.background(BACKGROUND)
-
-          const t = +new Date() / 10000
-          for (const point of points) {
-            const { x, y } = point
-            const rad = getForceOnPoint(x, y, t)
-            const length = getLength(x, y, t)
-            const nx = x + p.cos(rad) * length
-            const ny = y + p.sin(rad) * length
-            p.stroke(
-              200,
-              200,
-              200,
-              (Math.abs(p.cos(rad)) * 0.8 + 0.2) * point.opacity * 255
-            )
-            p.strokeWeight(2)
-            p.point(nx, ny)
-          }
+      // eslint-disable-next-line @typescript-eslint/prefer-for-of
+      for (
+        let x = -SPACING / 2;
+        x < width + SPACING;
+        x += SPACING
+      ) {
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
+        for (
+          let y = -SPACING / 2;
+          y < height + SPACING;
+          y += SPACING
+        ) {
+          points.push({
+            ox: x,
+            oy: y,
+            op: Math.random() * 0.5 + 0.5,
+          });
         }
       }
 
-      this.p5Instance = new p5(sketch, this)
+      const graphics = new PIXI.Graphics();
+      this.app.stage.addChild(graphics);
+
+      this.app.ticker.add(() => {
+        const t = Date.now() / 10000;
+        graphics.clear();
+
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
+        for (let i = 0; i < points.length; i++) {
+          const p = points[i];
+          const n1 = this.noise3D(
+            p.ox / SCALE,
+            p.oy / SCALE,
+            t,
+          );
+          const rad = n1 * Math.PI * 2;
+
+          const n2 = this.noise3D(
+            p.ox / SCALE,
+            p.oy / SCALE,
+            t * 2,
+          );
+          const len = (n2 + 1) * 0.5 * LENGTH;
+
+          const nx = p.ox + Math.cos(rad) * len;
+          const ny = p.oy + Math.sin(rad) * len;
+          const alpha =
+            (Math.abs(Math.cos(rad)) * 0.8 +
+              0.2) *
+            p.op;
+
+          // 使用更加简洁的绘图调用
+          graphics
+            .circle(nx, ny, 1)
+            .fill({ color: 0xcccccc, alpha });
+        }
+      });
     }
 
-    // after switching pages, stop the animation loop
     disconnectedCallback() {
-      if (this.p5Instance) {
-        this.p5Instance.remove()
-        this.p5Instance = null
+      if (this.app) {
+        this.app.destroy(true, {
+          children: true,
+        });
       }
     }
   }
 
-  customElements.define('bg-dot', BgDotElement)
+  if (!customElements.get("bg-dot")) {
+    customElements.define("bg-dot", BgDotElement);
+  }
 </script>
