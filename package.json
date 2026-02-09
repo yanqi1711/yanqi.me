@@ -75,7 +75,6 @@
     "mdast-util-directive": "^3.1.0",
     "mdast-util-to-string": "^4.0.0",
     "medium-zoom": "^1.1.0",
-    "p5": "^2.2.0",
     "pixi.js": "^8.9.1",
     "simplex-noise": "^4.0.3",
     "pagefind": "^1.4.0",
