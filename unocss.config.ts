@@ -1,8 +1,8 @@
 import {
   defineConfig,
   presetAttributify,
+  presetWind3,
   presetIcons,
-  presetUno,
   presetWebFonts,
   transformerDirectives,
   transformerVariantGroup,
@@ -85,12 +85,13 @@ export default defineConfig({
 
   // presets are partial configurations
   presets: [
-    presetUno(),
+    presetWind3(),
     presetAttributify({
       strict: true,
       prefix: 'u-',
       prefixedOnly: false,
     }),
+
     presetIcons({
       collections: {
         ri: () => import('@iconify-json/ri/icons.json').then(m => m.default),
@@ -120,6 +121,7 @@ export default defineConfig({
         'vertical-align': 'text-bottom',
       },
     }),
+
     presetWebFonts({
       fonts: {
         sans: 'Inter:400,600,800',
@@ -144,16 +146,25 @@ export default defineConfig({
     'left-[14%]',
     'lt-lg:left--4',
 
-    /* Home page social links */
-    'i-simple-icons-github',
-    'i-simple-icons-instagram',
-    'i-ri-bluesky-fill',
+    // /* Home page social links */
+    // 'i-simple-icons-github',
+    // 'i-simple-icons-instagram',
+    // 'i-ri-bluesky-fill',
+    // 'i-ri-twitter-x-fill',
 
-    /* RssLink component */
-    'i-lucide-rss',
 
-    /* remark-directive-sugar */
-    'i-carbon-logo-github',
+    // /* RssLink component */
+    // 'i-lucide-rss',
+
+    // /* remark-directive-sugar */
+    // 'i-carbon-logo-github',
+
+    // /* other */
+    // 'i-ri-menu-line',
+    // 'i-ri-close-large-fill',
+    // 'i-ri-arrow-up-line',
+    // 'i-ri-sun-line',
+    // 'i-ri-moon-line',
 
     /* BaseLayout */
     'focus:not-sr-only',

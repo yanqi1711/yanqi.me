@@ -23,10 +23,10 @@ const changelog = defineCollection({
   schema: postSchema,
 })
 
-const notes = defineCollection({
-  type: 'content',
-  schema: postSchema,
-})
+// const notes = defineCollection({
+//   type: 'content',
+//   schema: postSchema,
+// })
 
 const streams = defineCollection({
   type: 'data',
@@ -39,4 +39,5 @@ const feeds = defineCollection({
   }),
 })
 
-export const collections = { pages, blog, projects, changelog, notes, streams, feeds }
+// export const collections = { pages, blog, projects, changelog, notes, streams, feeds }
+export const collections = { pages, blog, projects, changelog, streams, feeds }
