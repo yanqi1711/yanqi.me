@@ -10,7 +10,7 @@ ogImage: true
 This post is about the Wired Unmanaged problem I encountered when I tried to configure a static IP address for my Ubuntu virtual machine.
 
 When I tried the following guide [虚拟机 Ubuntu 解决静态ip配置问题](https://blog.csdn.net/weixin_44860390/article/details/125122710), I found that the network manager was not working, Like the following picture:
-![Wired Unmanaged](https://oss.itbaima.cn/hub/448/image-20241226gk6z4r4d5.png)
+![Wired Unmanaged](../../assets/wired-unmanaged/unmanaged.png)
 This problem is the first time I have seen it. I have configured it many times based on that guide, but I have never encountered this situation. So I went to Google to find a solution to the problem and finally found a solution. I will record it here.
 
 ## Solution
