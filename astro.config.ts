@@ -1,13 +1,14 @@
-import { defineConfig } from 'astro/config'
-import sitemap from '@astrojs/sitemap'
-import robotsTxt from 'astro-robots-txt'
-import unocss from 'unocss/astro'
-import astroExpressiveCode from 'astro-expressive-code'
 import mdx from '@astrojs/mdx'
+import sitemap from '@astrojs/sitemap'
+import astroExpressiveCode from 'astro-expressive-code'
+import robotsTxt from 'astro-robots-txt'
+import { defineConfig } from 'astro/config'
+import unocss from 'unocss/astro'
 
-import { remarkPlugins, rehypePlugins } from './plugins'
+import { rehypePlugins, remarkPlugins } from './plugins'
 import { SITE } from './src/config'
 
+// eslint-disable-next-line node/prefer-global/process
 const isCloudflarePages = process.env.CF_PAGES === '1'
 
 const integrations = [
@@ -25,7 +26,7 @@ const integrations = [
 // 这里在 CF Pages 构建时临时禁用 sitemap，避免构建失败。
 if (!isCloudflarePages) {
   integrations.unshift(
-    sitemap()
+    sitemap(),
   )
 }
 

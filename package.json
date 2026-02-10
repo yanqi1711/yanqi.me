@@ -1,8 +1,11 @@
 {
   "name": "yanqi.me",
-  "version": "1.2.0",
   "type": "module",
+  "version": "1.2.0",
   "license": "MIT",
+  "engines": {
+    "node": "^18.0.0 || >=20.0.0"
+  },
   "scripts": {
     "astro": "astro",
     "sync": "astro sync",
@@ -10,13 +13,8 @@
     "check": "astro check",
     "build": "astro build",
     "preview": "astro preview",
-    "format": "prettier . --check --ignore-unknown",
-    "format:write": "prettier . --write --ignore-unknown --cache",
-    "lint": "eslint . --report-unused-disable-directives --max-warnings 0 --cache",
-    "lint:fix": "eslint . --fix --cache",
     "toolbar:on": "astro preferences enable devToolbar",
     "toolbar:off": "astro preferences disable devToolbar",
-    "prepare": "simple-git-hooks",
     "postbuild": "node scripts/run-pagefind.mjs"
   },
   "dependencies": {
@@ -24,13 +22,13 @@
     "nprogress": "^0.2.0"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^7.4.2",
     "@ascorbic/feed-loader": "^2.0.1",
     "@astrojs/check": "^0.9.6",
     "@astrojs/markdown-remark": "^6.3.10",
     "@astrojs/mdx": "^3.1.5",
     "@astrojs/rss": "^4.0.15",
     "@astrojs/sitemap": "^3.7.0",
-    "@eslint/js": "^9.39.2",
     "@expressive-code/plugin-collapsible-sections": "^0.41.6",
     "@expressive-code/plugin-line-numbers": "^0.41.6",
     "@iconify-json/bi": "^1.2.7",
@@ -57,29 +55,21 @@
     "@types/node": "^24.10.11",
     "@types/nprogress": "^0.2.3",
     "@types/p5": "^1.7.7",
-    "@typescript-eslint/parser": "^8.54.0",
     "@unocss/reset": "^66.6.0",
     "astro-expressive-code": "^0.41.6",
     "astro-robots-txt": "^1.0.0",
     "chalk": "^5.6.2",
     "dayjs": "^1.11.19",
     "del-cli": "^7.0.0",
-    "eslint": "^9.39.2",
-    "eslint-config-prettier": "^9.1.2",
-    "eslint-plugin-astro": "^1.5.0",
-    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint": "^10.0.0",
     "globals": "^17.3.0",
     "hastscript": "^9.0.1",
     "html-entities": "^2.6.0",
-    "lint-staged": "^16.2.7",
     "mdast-util-directive": "^3.1.0",
     "mdast-util-to-string": "^4.0.0",
     "medium-zoom": "^1.1.0",
-    "pixi.js": "^8.9.1",
-    "simplex-noise": "^4.0.3",
     "pagefind": "^1.4.0",
-    "prettier": "^3.8.1",
-    "prettier-plugin-astro": "^0.14.1",
+    "pixi.js": "^8.9.1",
     "reading-time": "^1.5.0",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-callouts": "^2.1.2",
@@ -91,21 +81,15 @@
     "satori": "^0.19.1",
     "satori-html": "^0.3.2",
     "sharp": "^0.34.5",
-    "simple-git-hooks": "^2.13.1",
+    "simplex-noise": "^4.0.3",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.54.0",
     "unist-util-visit": "^5.1.0",
     "unocss": "^66.6.0"
   },
-  "simple-git-hooks": {
-    "pre-commit": "npx lint-staged"
-  },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,astro}": [
       "eslint"
     ]
-  },
-  "engines": {
-    "node": "^18.0.0 || >=20.0.0"
   }
 }
