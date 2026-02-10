@@ -29,6 +29,7 @@ export default ts.config(
   prettier,
   {
     rules: {
+      "@typescript-eslint/prefer-for-of": "off",
       // https://typescript-eslint.io/rules/no-unused-vars/
       '@typescript-eslint/no-unused-vars': [
         'error',

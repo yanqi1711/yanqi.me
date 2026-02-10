@@ -12,17 +12,15 @@
   import { createNoise3D } from "simplex-noise";
 
   class BgDotElement extends HTMLElement {
-    // 使用 JS 私有属性或普通属性，避免在 script 顶层引起解析错误
     app = null;
     noise3D = createNoise3D();
+    points = [];
 
     async connectedCallback() {
-      // 初始化 PixiJS v8
       this.app = new PIXI.Application();
-
       await this.app.init({
         resizeTo: window,
-        backgroundAlpha: 0, // 透明背景，方便配合 CSS 控制
+        backgroundAlpha: 0,
         resolution: Math.min(
           window.devicePixelRatio,
           2,
@@ -36,41 +34,58 @@
       const SCALE = 200;
       const LENGTH = 10;
       const SPACING = 15;
-
-      // 修复 esbuild 报错的关键：先定义数据，避免复杂的 inline 类型声明
-      const points = [];
       const { width, height } = this.app.screen;
 
-      // eslint-disable-next-line @typescript-eslint/prefer-for-of
+      const dotGraphics = new PIXI.Graphics()
+        .circle(0, 0, 1)
+        .fill({ color: 0xcccccc, alpha: 1 });
+      const dotTexture =
+        this.app.renderer.generateTexture(
+          dotGraphics,
+        );
+
+      const container = new PIXI.Container();
+      this.app.stage.addChild(container);
+
       for (
         let x = -SPACING / 2;
         x < width + SPACING;
         x += SPACING
       ) {
-        // eslint-disable-next-line @typescript-eslint/prefer-for-of
         for (
           let y = -SPACING / 2;
           y < height + SPACING;
           y += SPACING
         ) {
-          points.push({
+          const sprite = new PIXI.Sprite(
+            dotTexture,
+          );
+          sprite.anchor.set(0.5);
+          sprite.x = x;
+          sprite.y = y;
+
+          container.addChild(sprite);
+
+          this.points.push({
             ox: x,
             oy: y,
             op: Math.random() * 0.5 + 0.5,
+            sprite: sprite,
           });
         }
       }
 
-      const graphics = new PIXI.Graphics();
-      this.app.stage.addChild(graphics);
-
       this.app.ticker.add(() => {
         const t = Date.now() / 10000;
-        graphics.clear();
 
-        // eslint-disable-next-line @typescript-eslint/prefer-for-of
-        for (let i = 0; i < points.length; i++) {
-          const p = points[i];
+        for (
+          let i = 0;
+          i < this.points.length;
+          i++
+        ) {
+          const p = this.points[i];
+
+          // 计算噪声
           const n1 = this.noise3D(
             p.ox / SCALE,
             p.oy / SCALE,
@@ -85,17 +100,12 @@
           );
           const len = (n2 + 1) * 0.5 * LENGTH;
 
-          const nx = p.ox + Math.cos(rad) * len;
-          const ny = p.oy + Math.sin(rad) * len;
-          const alpha =
+          p.sprite.x = p.ox + Math.cos(rad) * len;
+          p.sprite.y = p.oy + Math.sin(rad) * len;
+          p.sprite.alpha =
             (Math.abs(Math.cos(rad)) * 0.8 +
               0.2) *
             p.op;
-
-          // 使用更加简洁的绘图调用
-          graphics
-            .circle(nx, ny, 1)
-            .fill({ color: 0xcccccc, alpha });
         }
       });
     }
@@ -104,6 +114,8 @@
       if (this.app) {
         this.app.destroy(true, {
           children: true,
+          texture: true,
+          textureSource: true,
         });
       }
     }
