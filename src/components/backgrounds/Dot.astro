@@ -12,9 +12,14 @@
   import { createNoise3D } from "simplex-noise";
 
   class BgDotElement extends HTMLElement {
-    app = null;
+    app: PIXI.Application | null = null;
     noise3D = createNoise3D();
-    points = [];
+    points: Array<{
+      ox: number;
+      oy: number;
+      op: number;
+      sprite: PIXI.Sprite;
+    }> = [];
 
     async connectedCallback() {
       this.app = new PIXI.Application();
@@ -112,11 +117,39 @@
 
     disconnectedCallback() {
       if (this.app) {
-        this.app.destroy(true, {
-          children: true,
-          texture: true,
-          textureSource: true,
-        });
+        try {
+          const access =
+            this.app.renderer.accessibility;
+          if (
+            access &&
+            access.div &&
+            access.div.parentNode
+          ) {
+            access.div.parentNode.removeChild(
+              access.div,
+            );
+          }
+
+          this.app.destroy(true, {
+            children: true,
+            texture: true,
+            textureSource: true,
+          });
+        } catch (error) {
+          if (
+            !(
+              error instanceof DOMException &&
+              error.name === "NotFoundError"
+            )
+          ) {
+            console.error(
+              "Unexpected PixiJS error:",
+              error,
+            );
+          }
+        } finally {
+          this.app = null;
+        }
       }
     }
   }
