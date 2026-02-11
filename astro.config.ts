@@ -40,6 +40,9 @@ export default defineConfig({
     remarkPlugins,
     rehypePlugins,
   },
+  devToolbar: {
+    enabled: false,
+  },
   experimental: {
     contentLayer: true,
     contentIntellisense: true,
