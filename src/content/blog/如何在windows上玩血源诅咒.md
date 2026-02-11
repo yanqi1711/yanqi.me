@@ -26,7 +26,7 @@ ogImage: true
 ## 安装步骤
 
 1. 解压运行 BBLauncher
-2. 解压游戏本体 pkg 文件
+2. 点击 "PKG Extractor" 解压 pkg 文件
   - 找到游戏本体 pkg 文件
   - 选择解压后的文件路径
   - 点击 "Extract" 开始解压
@@ -44,11 +44,17 @@ ogImage: true
 点击 "Bloodborne Cheats/Patchers" 按钮，选择 Patches 选项卡，使用 shadPS4 Repo，点击 "Download Patches" 按钮，之后就会显示你的补丁列表，选择你需要的补丁进行安装
 
 个人使用的补丁：
-![Patches](../../assets/bloodborne/Patches.png)
+| Repo: shadPS4 | Repo: GoldHEN |
+| -------- | -------- |
+| Increased Graphics Heap Sizes | Skip Intro |
+| Disable HTTP Requests | Disable Motion Blur |
+| Uncap FPS(Deltatime)+(30fps Deltatime clamp) |  |
+| Unlock Games Region |  |
+| 1080p Light Grid |  |
 
 这里推荐中文重译的补丁，需要你选择 Patches 中的 "Unlock Games Region" 选项，然后
-1. 复制`Chinese Retranslation GOTY zh-cn`中的`menu`与`msg`文件夹到`CUSA03173\dvdroot_ps4`路径下
-2. 复制`Chinese Retranslation GOTY zh-cn`中的`msg`文件夹到`CUSA03173-patch\dvdroot_ps4`路径下
+1. 复制`Chinese Retranslation GOTY zh-cn`中的`menu`与`msg`文件夹到`CUSA03173\dvdroot_ps4`路径下，覆盖原文件
+2. 复制`Chinese Retranslation GOTY zh-cn`中的`msg`文件夹到`CUSA03173-patch\dvdroot_ps4`路径下，覆盖原文件
 3. 如果你不熟悉打开了 "Unlock Games Region" 补丁后的手柄映射可以点击 BBLauncher 面板中的手柄图标进行修改
 
 恭喜你已经完成了所有的安装步骤，启动游戏开始愉快游玩吧！
