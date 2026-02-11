@@ -42,6 +42,3 @@ And My future goal is to be an embedded full-stack developer in the real smart i
   </span><br>
   Or mail me at hi@yanqi.me
 </p>
-
-
----
