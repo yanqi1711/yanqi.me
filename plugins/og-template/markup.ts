@@ -1,26 +1,18 @@
+import type { BgType } from '../../src/types'
 import { html } from 'satori-html'
 import backgroundBase64 from './base64'
-import type { BgType } from '../../src/types'
 
-export const ogImageMarkup = (
-  authorOrBrand: string,
-  title: string,
-  bgType: BgType
-) => {
-  if (!['plum', 'dot'].includes(bgType))
+export function ogImageMarkup(authorOrBrand: string, title: string, bgType: BgType) {
+  if (!['plum', 'dot'].includes(bgType)) {
     throw new Error(
-      "The value of 'bgType' must be one of the following: 'plum', 'dot'."
+      'The value of \'bgType\' must be one of the following: \'plum\', \'dot\'.',
     )
+  }
 
   return html`<div
     tw="relative flex justify-center items-center w-full h-full"
-    style="font-family: 'Inter'"
+    style="font-family: 'Inter', 'NotoSans'; background-image: url('${backgroundBase64[bgType]}'); background-size: 100% 100%;"
   >
-    <img
-      tw="absolute inset-0 w-full h-full"
-      src=${backgroundBase64[bgType]}
-      alt="open graph"
-    />
 
     <div tw="flex items-center justify-start w-full px-18" style="gap: 20px">
       <div tw="self-start flex justify-center items-center">
