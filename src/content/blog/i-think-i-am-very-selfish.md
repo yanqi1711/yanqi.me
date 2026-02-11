@@ -5,7 +5,7 @@ pubDate: 2024-12-08
 lastModDate: ''
 toc: true
 share: true
-ogImage: true
+ogImage: false
 ---
 This post is about my foolish and selfish thoughts.
 
