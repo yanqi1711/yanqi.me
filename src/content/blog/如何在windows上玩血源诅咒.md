@@ -41,7 +41,7 @@ ogImage: true
 
 ## 使用一些重要的补丁
 
-点击 "Bloodborne Cheats/Patchers" 按钮，选择 Patches 选项卡，使用 shadPS4 Repo，点击 "Download Patches" 按钮，之后就会显示你的补丁列表，选择你需要的补丁进行安装
+点击 "Bloodborne Cheats/Patchers" 按钮，选择 Patches 选项卡，点击 "Download Patches" 按钮，之后就会显示你的补丁列表，选择你需要的补丁进行安装
 
 个人使用的补丁：
 | Repo: shadPS4 | Repo: GoldHEN |
@@ -61,4 +61,5 @@ ogImage: true
 
 ## 参考资料
 
-https://www.reddit.com/r/shadps4/comments/1lee438/full_guide_how_to_play_bloodborne_on_pc_for_n00bs/
+[FULL GUIDE - How to Play BloodBorne on PC for N00bs](https://www.reddit.com/r/shadps4/comments/1lee438/full_guide_how_to_play_bloodborne_on_pc_for_n00bs/
+)
