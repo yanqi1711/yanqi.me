@@ -14,7 +14,8 @@ function injectChild(items: TocHeading[], item: TocHeading): void {
 
   if (!lastItem || lastItem.depth >= item.depth) {
     items.push(item)
-  } else {
+  }
+  else {
     const depthDiff = item.depth - lastItem.depth
 
     if (depthDiff > 1) {
@@ -34,9 +35,9 @@ function injectChild(items: TocHeading[], item: TocHeading): void {
       }
 
       currentItems.push(item)
-    } else {
+    }
+    else {
       injectChild(lastItem.children, item)
-      return
     }
   }
 }
@@ -48,21 +49,26 @@ function injectChild(items: TocHeading[], item: TocHeading): void {
 export function generateToc(
   headings: readonly MarkdownHeading[],
   minHeadingLevel: HeadingLevel,
-  maxHeadingLevel: HeadingLevel
+  maxHeadingLevel: HeadingLevel,
 ) {
   if (minHeadingLevel > maxHeadingLevel) {
     throw new Error(
-      '`minHeadingLevel` must be less than or equal to `maxHeadingLevel`'
+      '`minHeadingLevel` must be less than or equal to `maxHeadingLevel`',
     )
   }
 
   const bodyHeadings = headings.filter(
-    ({ depth }) => depth >= minHeadingLevel && depth <= maxHeadingLevel
+    ({ depth }) => depth >= minHeadingLevel && depth <= maxHeadingLevel,
   )
 
   const toc: TocHeading[] = []
-  for (const heading of bodyHeadings)
-    injectChild(toc, { ...heading, children: [] })
-
+  for (const heading of bodyHeadings) {
+    const cleanHeading = {
+      ...heading,
+      text: heading.text.replace(/\s*#\s*$/, ''),
+      children: [],
+    }
+    injectChild(toc, cleanHeading)
+  }
   return toc
 }
