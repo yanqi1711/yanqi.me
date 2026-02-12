@@ -218,10 +218,18 @@
   content: none;
 }
 
-.table-scroller table {
-  display: table !important;
-  /* 恢复标准表格布局 */
+.table-container {
   width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.5rem 0;
+  background: linear-gradient(to right, white 30%, rgba(255, 255, 255, 0)),
+    linear-gradient(to right, rgba(255, 255, 255, 0), white 70%) 100% 0,
+    radial-gradient(farthest-side at 0 50%, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0)),
+    radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0)) 100% 0;
+  background-repeat: no-repeat;
+  background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
+  background-attachment: local, local, scroll, scroll;
 }
 
 .prose table {
@@ -232,8 +240,6 @@
   font-size: 0.875em;
   line-height: 1.7142857;
 }
-
-
 
 .prose thead {
   color: var(--fg-deep);
