@@ -218,15 +218,22 @@
   content: none;
 }
 
+.table-scroller table {
+  display: table !important;
+  /* 恢复标准表格布局 */
+  width: 100%;
+}
+
 .prose table {
-  display: block;
-  overflow-x: auto;
-  max-width: 100%;
+  display: table;
+  width: 100%;
   table-layout: auto;
   text-align: left;
   font-size: 0.875em;
   line-height: 1.7142857;
 }
+
+
 
 .prose thead {
   color: var(--fg-deep);

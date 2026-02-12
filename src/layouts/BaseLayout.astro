@@ -112,6 +112,59 @@ const {
           );
         },
       );
+      class TableWrapper extends HTMLElement {
+        connectedCallback() {
+          const table =
+            this.querySelector("table");
+          if (
+            table &&
+            !this.querySelector(".table-scroller")
+          ) {
+            const wrapper =
+              document.createElement("div");
+            wrapper.className = "table-scroller";
+            wrapper.style.overflowX = "auto";
+            wrapper.style.maxWidth = "100%";
+            if (table.parentNode) {
+              table.parentNode.insertBefore(
+                wrapper,
+                table,
+              );
+              wrapper.appendChild(table);
+            }
+          }
+        }
+      }
+      customElements.define(
+        "table-wrapper",
+        TableWrapper,
+      );
+
+      // 简单的逻辑：页面加载后找到 table 并处理
+      document
+        .querySelectorAll("table")
+        .forEach((table) => {
+          if (!table.parentElement) {
+            return;
+          }
+          if (
+            !table.parentElement.classList.contains(
+              "table-scroller",
+            )
+          ) {
+            const div =
+              document.createElement("div");
+            div.className = "table-scroller";
+            div.style.overflowX = "auto";
+            if (table.parentNode) {
+              table.parentNode.insertBefore(
+                div,
+                table,
+              );
+              div.appendChild(table);
+            }
+          }
+        });
     </script>
   </body>
 </html>
