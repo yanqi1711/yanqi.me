@@ -1,10 +1,12 @@
-Hello, I'm a developer from China.<br>
+Hello, I'm a embedded developer from China.
 
-I am 23 years old. Now, I'm studying for [Postgraduate Entrance Examination](https://github.com/yanqi1711/pee).<br>
+I am 24 years old. I were studying for [Postgraduate Entrance Examination](https://github.com/yanqi1711/pee).
 
-From 2023-2024, I worked as an embedded developer in a smart driving service industry, using C, C++, Python, Shell, and other development languages, mainly dealing with operating system development, ROS software development, and unmanned driving camera driver development.<br>
+From 2024-2025, I worked as an embedded developer in a smart driving service industry, using C, C++, Python, Shell, and other development languages, mainly dealing with operating system development, ROS software development, and unmanned driving camera driver development.
 
-And My future goal is to be an embedded full-stack developer in the real smart industry. If you are interested in hiring me, please contact me.
+I also write some utility websites like [考研单词](https://words.yanqi.me/), some apps like [auto-clicker](https://github.com/yanqi1711/auto-clicker).
+
+My future goal is to be an embedded full-stack developer in the real smart industry. If you are interested in hiring me, please contact me.
 
 ---
 
@@ -26,7 +28,7 @@ And My future goal is to be an embedded full-stack developer in the real smart i
       <span i-ri-bluesky-fill></span> BlueSky
     </a>
     <a
-      href="https://x.com/yanqi1712"
+      href="https://x.com/yanqi1713"
       target="_blank"
       aria-label="Find me on Twitter (external link)"
     >
