@@ -222,13 +222,10 @@
   width: 100%;
   overflow-x: auto;
   border: 1px solid rgba(128, 128, 128, 0.2);
-  /* 淡淡的灰色边框，亮暗都合适 */
   border-radius: 8px;
   padding: 0.5rem;
-  /* 给内部留点呼吸空间 */
 }
 
-/* 隐藏滚动条（可选，如果你觉得原生滚动条丑） */
 .table-container::-webkit-scrollbar {
   height: 4px;
 }
