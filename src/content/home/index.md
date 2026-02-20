@@ -2,7 +2,7 @@ Hello, I'm a embedded developer from China.
 
 I am 24 years old. I were studying for [Postgraduate Entrance Examination](https://github.com/yanqi1711/pee).
 
-From 2024-2025, I worked as an embedded developer in a smart driving service industry, using C, C++, Python, Shell, and other development languages, mainly dealing with operating system development, ROS software development, and unmanned driving camera driver development.
+From 2023-2024, I worked as an embedded developer in a smart driving service industry, using C, C++, Python, Shell, and other development languages, mainly dealing with operating system development, ROS software development, and unmanned driving camera driver development.
 
 I also write some utility websites like [考研单词](https://words.yanqi.me/), some apps like [auto-clicker](https://github.com/yanqi1711/auto-clicker).
 
