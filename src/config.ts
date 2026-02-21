@@ -43,7 +43,7 @@ export const UI: Ui = {
       icon: 'i-uil-github-alt',
     },
     {
-      link: 'https://x.com/yanqi1712',
+      link: 'https://x.com/yanqi1713',
       title: `${SITE.author} on Twitter`,
       displayMode: 'alwaysIcon',
       icon: 'i-ri-twitter-x-fill',
