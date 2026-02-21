@@ -70,8 +70,35 @@ export const UI: Ui = {
     { title: 'Changelog', path: '/changelog' },
     // { title: 'AstroStreams', path: '/streams' },
   ],
+  groupView: {
+    maxGroupColumns: 3,
+    showGroupItemColorOnHover: true,
+  },
+  githubView: {
+    monorepos: [
+      'withastro/astro',
+      'withastro/starlight',
+      'lin-stephanie/astro-loaders',
+    ],
+    mainLogoOverrides: [
+      [/starlight/, 'https://starlight.astro.build/favicon.svg'],
+    ],
+    subLogoMatches: [
+      [/theme/, 'i-unjs-theme-colors'],
+      [/github/, 'https://github.githubassets.com/favicons/favicon.svg'],
+      [/tweet/, 'i-logos-twitter'],
+      [/bluesky/, 'i-logos-bluesky'],
+    ],
+  },
+  externalLink: {
+    newTab: false,
+    cursorType: '',
+    showNewTabIcon: false,
+  },
+
   maxGroupColumns: 3,
   showGroupItemColorOnHover: true,
+  postMetaStyle: 'minimal',
 }
 
 /**

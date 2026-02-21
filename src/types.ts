@@ -65,7 +65,9 @@ export interface Site {
 }
 
 /* UI */
-type Icon = `i-${string}-${string}` | `i-${string}:${string}`
+/* UI */
+export type Icon = `i-${string}-${string}` | `i-${string}:${string}`
+export type RepoWithOwner = `${string}/${string}`
 
 interface BaseNavItem {
   /**
@@ -290,13 +292,13 @@ export interface ResponsiveSocialItem extends BaseSocialItem {
 
 export type SocialLink = TextSocialItem | IconSocialItem | ResponsiveSocialItem
 
-type NavBarComponentType =
-  | 'internalNavs'
-  | 'socialLinks'
-  | 'searchButton'
-  | 'themeButton'
-  | 'rssLink'
-
+type NavBarComponentType
+  = | 'internalNavs'
+    | 'socialLinks'
+    | 'searchButton'
+    | 'themeButton'
+    | 'rssLink'
+    | 'hr'
 export interface NavBarLayout {
   /**
    * Defines which components ('internalNavs', 'socialLinks', 'searchButton',
@@ -342,6 +344,72 @@ interface Tab {
 
 export type Tabs = [Tab, ...Tab[]]
 
+interface GroupView {
+  /**
+   * Sets the maximum number of columns displayed in the group view.
+   */
+  maxGroupColumns: 2 | 3
+
+  /**
+   * Determines whether group item icons display in color when hovered over.
+   *
+   * If `true`, the icon for the group item will display in its original colors on hover.
+   */
+  showGroupItemColorOnHover: boolean
+}
+
+export interface GitHubView {
+  /**
+   * Defines monorepo repositories using `<owner>/<repo>` format.
+   *
+   * For monorepos, the tag name is used as the primary text for `/releases` page.
+   */
+  monorepos: RepoWithOwner[]
+
+  /**
+   * Configures main logos for repositories or packages (for monorepos).
+   *
+   * Matching supports regex or `<owner>/<repo>` format, prioritized by order,
+   * and defaults to the owner's avatar if no custom logo is specified.
+   */
+  mainLogoOverrides: [RepoWithOwner | RegExp, Url | Icon][]
+
+  /**
+   * Configures auxiliary logos for repositories or packages (for monorepos).
+   *
+   * Matching supports regex or `<owner>/<repo>` format, prioritized by order,
+   * with no logo displayed for unmatched cases.
+   */
+  subLogoMatches: [RepoWithOwner | RegExp, Url | Icon][]
+}
+
+interface ExternalLink {
+  /**
+   * Controls whether external links are opened in a new tab.
+   * See {@link https://github.com/lin-stephanie/astro-antfustyle-theme/pull/15 #15} for details.
+   */
+  newTab: boolean
+
+  /**
+   * Specifies the cursor type for external links when `newTab` is `true`.
+   * See {@link https://github.com/lin-stephanie/astro-antfustyle-theme/pull/15 #15} for details.
+   *
+   * Accepts {@link https://developer.mozilla.org/en-US/docs/Web/CSS/cursor#keyword standard keywords},
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/cursor#url custom URLs},
+   * or an empty string, defaulting to 'pointer' like internal links.
+   *
+   * @example
+   * 'url("/images/new-tab.svg") 10 10, pointer'
+   */
+  cursorType: string
+
+  /**
+   * Controls whether to add an indicator to external links when `newTab` is `true`.
+   * See {@link https://github.com/lin-stephanie/astro-antfustyle-theme/pull/15 #15} for details.
+   */
+  showNewTabIcon: boolean
+}
+
 export interface Ui {
   /**
    * Configures internal navigation links, used in `src/components/base/NavBar.astro`.
@@ -372,6 +440,39 @@ export interface Ui {
    * Otherwise, required before using this layout.
    */
   tabbedLayoutTabs: false | Tabs
+
+  /**
+   * Configures the `/projects` UIs.
+   *
+   * Used in `src/components/views/GroupItem.astro` and `src/components/base/Categorizer.astro`.
+   */
+  groupView: GroupView
+
+  /**
+   * Configures the `/releases` and `/prs` UIs.
+   *
+   * Used in `src/components/views/GithubView.astro`.
+   */
+  githubView: GitHubView
+
+  /**
+   * Configures external links' behavior and appearance.
+   *
+   * Used in `plugins/index.ts`, `src/components/base/Link.astro`
+   * and `src/layouts/BaseLayout.astro`.
+   */
+  externalLink: ExternalLink
+
+  /**
+   * Controls the display style of post metadata (creation date, read time, modified date):
+   * - 'minimal': Plain text with middle dots.
+   * - 'icon': Includes icons before each metadata item.
+   *
+   * On mobile devices, the modified date (if present) is hidden.
+   *
+   * Used in `src/components/base/PostMeta.astro`.
+   */
+  postMetaStyle: 'minimal' | 'icon'
 
   /**
    * Sets the maximum number of columns displayed in the group view.

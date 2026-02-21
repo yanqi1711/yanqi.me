@@ -1,26 +1,57 @@
-import { visit } from 'unist-util-visit'
+import type { RehypePlugins, RemarkPlugins } from 'astro'
+
+import type { CreateProperties } from 'rehype-external-links'
+import type { PropertiesFromTextDirective } from 'remark-directive-sugar'
+import { rehypeHeadingIds } from '@astrojs/markdown-remark'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import rehypeCallouts from 'rehype-callouts'
+import rehypeExternalLinks from 'rehype-external-links'
+
+import rehypeKatex from 'rehype-katex'
+// @ts-expect-error(rehype-wrap-all is not typed)
+import rehypeWrapAll from 'rehype-wrap-all'
 import remarkDirective from 'remark-directive'
-import remarkDirectiveSugar from './remark-directive-sugar'
-import remarkImageContainer from './remark-image-container'
+import remarkDirectiveSugar from 'remark-directive-sugar'
 import remarkImgattr from 'remark-imgattr'
 import remarkMath from 'remark-math'
-import remarkReadingTime from './remark-reading-time'
+
+import { visit } from 'unist-util-visit'
+
+import { FEATURES, UI } from '../src/config'
 import remarkGenerateOgImage from './remark-generate-og-image'
-
-import { rehypeHeadingIds } from '@astrojs/markdown-remark'
-import rehypeCallouts from 'rehype-callouts'
-import rehypeKatex from 'rehype-katex'
-import rehypeExternalLinks from 'rehype-external-links'
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-
-import { FEATURES } from '../src/config'
-import type { RemarkPlugins, RehypePlugins } from 'astro'
+import remarkReadingTime from './remark-reading-time'
 
 export const remarkPlugins: RemarkPlugins = [
   // https://github.com/remarkjs/remark-directive
   remarkDirective,
-  remarkDirectiveSugar,
-  remarkImageContainer,
+  // https://github.com/lin-stephanie/remark-directive-sugar
+  [
+    remarkDirectiveSugar,
+    {
+      badge: {
+        presets: {
+          n: { text: 'NEW' },
+          a: { text: 'ARTICLE' },
+          v: { text: 'VIDEO' },
+        },
+      },
+      link: {
+        faviconSourceUrl:
+          'https://www.google.com/s2/favicons?domain={domain}&sz=128',
+        imgProps: (node: Parameters<PropertiesFromTextDirective>[0]) => {
+          const props: ReturnType<PropertiesFromTextDirective> = {
+            'aria-hidden': 'true',
+          }
+          if (node.attributes?.class?.includes('github'))
+            props.src = 'https://github.githubassets.com/favicons/favicon.svg'
+          return props
+        },
+      },
+      image: {
+        stripParagraph: false,
+      },
+    },
+  ],
   // https://github.com/OliverSpeir/remark-imgattr
   remarkImgattr,
   // https://github.com/remarkjs/remark-math/tree/main/packages/remark-math
@@ -33,7 +64,7 @@ export const remarkPlugins: RemarkPlugins = [
 
 export const rehypePlugins: RehypePlugins = [
   // https://docs.astro.build/en/guides/markdown-content/#heading-ids-and-plugins
-  rehypeHeadingIds,
+  [rehypeHeadingIds, { headingIdCompat: true }],
   // https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex
   rehypeKatex,
   // https://github.com/lin-stephanie/rehype-callouts
@@ -43,49 +74,105 @@ export const rehypePlugins: RehypePlugins = [
       theme: 'vitepress',
     },
   ],
-
   // https://github.com/rehypejs/rehype-external-links
   [
     rehypeExternalLinks,
     {
-      target: '_blank',
-      rel: 'noopener noreferrer',
-      // @ts-expect-error (import('hast').Element)
-      properties: (node) => {
-        let content = ''
-        visit(node, 'text', (textNode) => {
-          content += textNode.value
+      rel: UI.externalLink.newTab ? 'noopener noreferrer' : [],
+      content: (el: Parameters<CreateProperties>[0]) => {
+        if (!UI.externalLink.newTab || !UI.externalLink.showNewTabIcon)
+          return null
+
+        let hasImage = false
+        visit(el, 'element', (childNode) => {
+          if (childNode.tagName === 'img') {
+            hasImage = true
+            return false
+          }
         })
+        if (hasImage)
+          return null
+
         return {
-          ariaLabel: `${content && `Link to: ${content} `}(external link)`,
+          type: 'text',
+          value: '',
         }
+      },
+      contentProperties: (el: Parameters<CreateProperties>[0]) => {
+        if (!UI.externalLink.newTab || !UI.externalLink.showNewTabIcon)
+          return null
+
+        let hasImage = false
+        visit(el, 'element', (childNode) => {
+          if (childNode.tagName === 'img') {
+            hasImage = true
+            return false
+          }
+        })
+        if (hasImage)
+          return null
+
+        return {
+          'u-i-carbon-arrow-up-right': true,
+          'className': ['new-tab-icon'],
+          'aria-hidden': 'true',
+        }
+      },
+      properties: (el: Parameters<CreateProperties>[0]) => {
+        const props: ReturnType<CreateProperties> = {}
+        const href = el.properties.href
+
+        if (!href || typeof href !== 'string')
+          return props
+
+        if (UI.externalLink.newTab) {
+          props.target = '_blank'
+          props.ariaLabel = 'Open in new tab'
+          if (
+            UI.externalLink.cursorType.length > 0
+            && UI.externalLink.cursorType !== 'pointer'
+          ) {
+            props.className = Array.isArray(el.properties.className)
+              ? [...el.properties.className, 'external-link-cursor']
+              : ['external-link-cursor']
+          }
+        }
+
+        return props
       },
     },
   ],
-
   // https://github.com/rehypejs/rehype-autolink-headings
   [
     rehypeAutolinkHeadings,
     {
       behavior: 'append',
-      // @ts-expect-error (import('hast').Element)
-      properties: (node) => {
+      properties: (el: Parameters<CreateProperties>[0]) => {
         let content = ''
-        visit(node, 'text', (textNode) => {
+        visit(el, 'text', (textNode) => {
           content += textNode.value
         })
         return {
           'class': 'header-anchor',
-          'tabIndex': 0,
-          'ariaHidden': 'false',
-          'ariaLabel': `Link to heading: ${content}`,
-          'data-pagefind-ignore': true,
+          'tab-index': 0,
+          'aria-hidden': 'false',
+          'aria-label': content ? `Link to ${content}` : undefined,
+          // avoid `#` being indexed and show in search results
+          'data-pagefind-ignore': '',
         }
       },
       content: {
         type: 'text',
         value: '#',
       },
+    },
+  ],
+  // https://github.com/florentb/rehype-wrap-all
+  [
+    rehypeWrapAll,
+    {
+      selector: 'table',
+      wrapper: 'div',
     },
   ],
 ]
