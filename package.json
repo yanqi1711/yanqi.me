@@ -55,6 +55,7 @@
     "@types/node": "^24.10.11",
     "@types/nprogress": "^0.2.3",
     "@types/p5": "^1.7.7",
+    "@unocss/astro": "^66.6.7",
     "@unocss/reset": "^66.6.0",
     "astro-expressive-code": "^0.41.6",
     "astro-robots-txt": "^1.0.0",
