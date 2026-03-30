@@ -34,7 +34,7 @@ interface Props {
 const { collectionType, pageToc } = Astro.props;
 const VALID_COLLECTION_TYPE = [
   "blog",
-  "changelog",
+  "record",
   "streams",
   "feeds",
 ];
@@ -54,7 +54,7 @@ let sortedBlogItems: CollectionEntry<ContentCollectionKey>[] =
 
 // if (
 //   collectionType === "blog" ||
-//   collectionType === "changelog" ||
+//   collectionType === "record" ||
 //   collectionType === "notes"
 // ) {
 //   blogItems = await getFilteredPosts(
@@ -77,7 +77,7 @@ let sortedBlogItems: CollectionEntry<ContentCollectionKey>[] =
 
 if (
   collectionType === "blog" ||
-  collectionType === "changelog"
+  collectionType === "record"
 ) {
   blogItems = await getFilteredPosts(
     collectionType,
@@ -169,7 +169,7 @@ if (collectionType === "feeds") {
 
 <!-- {
   (collectionType === "blog" ||
-    collectionType === "changelog" ||
+    collectionType === "record" ||
     collectionType === "notes") && (
     <ul aria-label="Post list">
       {sortedBlogItems.length === 0 ? (
@@ -222,7 +222,7 @@ if (collectionType === "feeds") {
 
 {
   (collectionType === "blog" ||
-    collectionType === "changelog") && (
+    collectionType === "record") && (
     <ul aria-label="Post list">
       {sortedBlogItems.length === 0 ? (
         <div class="py-2 op-50">

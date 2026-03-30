@@ -28,10 +28,10 @@ export const UI: Ui = {
       // icon: 'i-ri-lightbulb-line',
     },
     {
-      path: '/changelog',
-      title: 'Changelog',
+      path: '/record',
+      title: 'Record',
       displayMode: 'iconToTextOnMobile',
-      text: 'Changelog',
+      text: 'Record',
       icon: 'i-ri-draft-line',
     },
   ],
@@ -67,7 +67,7 @@ export const UI: Ui = {
     mergeOnMobile: true,
   },
   tabbedLayoutTabs: [
-    { title: 'Changelog', path: '/changelog' },
+    { title: 'Record', path: '/record' },
     // { title: 'AstroStreams', path: '/streams' },
   ],
   groupView: {

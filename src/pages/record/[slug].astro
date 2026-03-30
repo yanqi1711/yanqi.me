@@ -8,7 +8,7 @@ import { getFilteredPosts } from '~/utils/post'
 import { FEATURES } from '~/config'
 
 export async function getStaticPaths() {
-  const posts = await getFilteredPosts('changelog')
+  const posts = await getFilteredPosts('record')
 
   return posts.map((post) => ({
     params: { slug: post.slug },
