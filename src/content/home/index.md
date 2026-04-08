@@ -1,4 +1,4 @@
-Hello, I'm a embedded developer from China.
+Hello, I'm an embedded developer from China.
 
 I am 24 years old. I were studying for [Postgraduate Entrance Examination](https://github.com/yanqi1711/pee).
 
