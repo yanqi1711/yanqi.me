@@ -14,8 +14,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "toolbar:on": "astro preferences enable devToolbar",
-    "toolbar:off": "astro preferences disable devToolbar",
-    "postbuild": "node scripts/run-pagefind.mjs"
+    "toolbar:off": "astro preferences disable devToolbar"
   },
   "dependencies": {
     "astro": "4.16.8",
