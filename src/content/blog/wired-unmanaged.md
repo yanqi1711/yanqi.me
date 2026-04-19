@@ -13,7 +13,8 @@ When I tried the following guide [虚拟机 Ubuntu 解决静态ip配置问题](h
 ![Wired Unmanaged](../../assets/wired-unmanaged/unmanaged.png)
 This problem is the first time I have seen it. I have configured it many times based on that guide, but I have never encountered this situation. So I went to Google to find a solution to the problem and finally found a solution. I will record it here.
 
-## Solution
+**Solution**
+
 1. Add a missing config file with
 ```bash
 sudo touch /etc/NetworkManager/conf.d/10-globally-managed-devices.conf

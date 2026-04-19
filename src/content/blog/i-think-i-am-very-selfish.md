@@ -9,7 +9,6 @@ ogImage: false
 ---
 This post is about my foolish and selfish thoughts.
 
-## OK, it's a game
 If this world were a game, I would definitely play it again and again.
 There were too many things I wanted to do during my college years, but I did not have enough time and knowledge.
 
