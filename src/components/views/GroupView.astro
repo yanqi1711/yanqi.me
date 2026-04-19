@@ -20,10 +20,7 @@ const tocEnabled = Array.isArray(toc) && toc[0] && pageToc
 
 {
   tocEnabled && (
-    <Toc
-      category={Object.keys(projects)}
-      style={toc[1].displayPosition === 'right' ? 'text-align:end' : ''}
-    />
+    <Toc category={Object.keys(projects)} />
   )
 }
 {

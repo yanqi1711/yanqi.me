@@ -200,6 +200,15 @@ html.dark .prose {
   align-self: flex-end;
 }
 
+.table-of-contents-right>ul {
+  text-align: end;
+}
+
+.table-of-contents-right ul>li {
+  padding-left: 0;
+  padding-right: 0.8rem;
+}
+
 /* Expressive Code */
 .expressive-code {
   margin: 0.5em 0;
