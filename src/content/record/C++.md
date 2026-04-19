@@ -9,8 +9,6 @@ share: true
 ogImage: false
 ---
 
-## 最好的C++教程学习指南
-
 ### 配置调试环境 (launch.json)
 
 ```text
@@ -268,14 +266,14 @@ class MyClass {
     const int capacity;
 public:
     // 正确：在进入构造函数体前完成初始化
-    MyClass(int c) : capacity(c) {} 
-    
+    MyClass(int c) : capacity(c) {}
+
     // 错误：在此处赋值会报错，因为 capacity 是只读的
-    // MyClass(int c) { capacity = c; } 
+    // MyClass(int c) { capacity = c; }
 };
 ```
 
-2. 初始化引用成员 (&) 
+2. 初始化引用成员 (&)
 ```c++
 class MyClass {
     int& ref;
@@ -295,7 +293,7 @@ class MyClass {
     Dependency dep;
 public:
     // 必须通过初始化列表给 Dependency 传参
-    MyClass(int x) : dep(x) {} 
+    MyClass(int x) : dep(x) {}
 };
 ```
 
@@ -341,7 +339,7 @@ public:
 
 int main() {
     // printBuffer(40); // 编译报错！不再允许隐式转换
-    
+
     printBuffer(MyBuffer(40)); // OK！必须显式调用构造函数
 }
 ```
@@ -888,7 +886,7 @@ int main() {
 	std::vector<int> arr = {5, 2, 9, 1, 5, 6};
 
     // 将 1 看作最大的元素
-	std::sort(arr.begin(), arr.end(), [](int a, int b) { 
+	std::sort(arr.begin(), arr.end(), [](int a, int b) {
         if (a == 1)
             return false;
         if (b == 1)
@@ -1004,7 +1002,7 @@ int main() {
 4. `const_cast` ：将常量性转换为非常量性，或将非常量性转换为常量性。
 
 例子：
-```
+```c++
 #include <catch2/catch_test_macros.hpp>
 
 class Base {
@@ -1078,4 +1076,3 @@ TEST_CASE("test for studing", "[casting]") {
 - 预编译头文件应该包含项目中所有需要的头文件，包括标准库头文件、项目头文件等。
 
 在c++20中，可以关注 Modules 功能，Modules 是为了从根本上解决头文件包含问题而设计的，性能通常优于 PCH，且逻辑更现代。
-
