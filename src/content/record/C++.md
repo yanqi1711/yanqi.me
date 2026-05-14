@@ -1,7 +1,7 @@
 ---
-title: My C++ Studing Journey
+title: My C++ Study Journey
 subtitle: ''
-description: My C++ Studing Journey
+description: My C++ Study Journey
 pubDate: 2024-10-01
 lastModDate: ''
 toc: true
