@@ -6,19 +6,20 @@ import Warning from '~/components/base/Warning.astro'
 import { formatDate } from '~/utils/datetime'
 import { getFilteredPosts } from '~/utils/post'
 import { FEATURES } from '~/config'
+import { render } from 'astro:content'
 
 export async function getStaticPaths() {
   const posts = await getFilteredPosts('record')
 
   return posts.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
     props: { post },
   }))
 }
 
-const { post } = Astro.props
-const { data: frontmatter } = post
-const { Content, headings, remarkPluginFrontmatter } = await post.render()
+const post = Astro.props.post as any
+const frontmatter = post.data
+const { Content, headings, remarkPluginFrontmatter } = await render(post)
 const { toc } = FEATURES
 
 const pubDate = frontmatter.pubDate.toISOString()

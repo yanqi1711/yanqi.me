@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../.astro/collections/streams.schema.json",
   "streams": [
     {
       "title": "Astro in 100 Seconds",

@@ -1,10 +1,11 @@
-import { decode } from 'html-entities'
-import { join } from 'node:path'
-import { existsSync } from 'node:fs'
-
 import type { html } from 'satori-html'
 import type { ProjectGroupsSchema } from '~/content/schema'
 import type { NavBarLayout } from '~/types'
+
+import { existsSync } from 'node:fs'
+import { join } from 'node:path'
+import process from 'node:process'
+import { decode } from 'html-entities'
 
 /**
  * Converts a given text into a URL-friendly slug.
@@ -21,7 +22,7 @@ export function extractIconsStartingWithI(data: ProjectGroupsSchema): string[] {
 
   for (const key in data) {
     const projects = data[key]
-    projects.forEach((project) => {
+    projects.forEach((project: any) => {
       if (project.icon && project.icon.startsWith('i')) {
         icons.push(project.icon)
       }
@@ -46,7 +47,7 @@ export function getUrl(...paths: string[]): string {
  * Ensures that a given pathname ends with a trailing slash.
  */
 export function ensureTrailingSlash(pathname: string): string {
-  return pathname.endsWith('/') ? pathname : pathname + '/'
+  return pathname.endsWith('/') ? pathname : `${pathname}/`
 }
 
 /**
@@ -71,15 +72,18 @@ export function checkFileExistsInDir(path: string, filename: string) {
  */
 export function unescapeHTML(node: ReturnType<typeof html>) {
   const children = node?.props?.children
-  if (!children) {
+  if (!children)
     return
-  } else if (Array.isArray(children)) {
+
+  if (Array.isArray(children)) {
     for (const n of children) {
       unescapeHTML(n)
     }
-  } else if (typeof children === 'object') {
+  }
+  else if (typeof children === 'object') {
     unescapeHTML(children)
-  } else if (typeof children === 'string') {
+  }
+  else if (typeof children === 'string') {
     node.props.children = decode(children)
   }
 }
@@ -94,7 +98,7 @@ export function validateNavBarLayout(layout: NavBarLayout) {
   for (const item of leftSet) {
     if (rightSet.has(item)) {
       throw new Error(
-        `Duplicate '${item}' found in both 'UI.navBarLayout.left' and 'UI.navBarLayout.right'.`
+        `Duplicate '${item}' found in both 'UI.navBarLayout.left' and 'UI.navBarLayout.right'.`,
       )
     }
   }

@@ -2,6 +2,7 @@
 import {
   getCollection,
   getEntry,
+  render,
 } from "astro:content";
 import Categorizer from "~/components/base/Categorizer.astro";
 import ListItem from "~/components/views/ListItem.astro";
@@ -48,8 +49,8 @@ const tocEnabled =
 let years: string[] = [];
 
 /* Posts */
-let blogItems: CollectionEntry<ContentCollectionKey>[];
-let sortedBlogItems: CollectionEntry<ContentCollectionKey>[] =
+let blogItems: any[];
+let sortedBlogItems: any[] =
   [];
 
 // if (
@@ -104,9 +105,9 @@ let sortedStreamItems: StreamGroupsSchema = [];
 if (collectionType === "streams") {
   const streamData = await getEntry(
     collectionType,
-    "data",
-  );
-  streamItems = streamData.data.streams;
+    "streams",
+  ) as any;
+  streamItems = streamData.data;
 
   sortedStreamItems = streamItems.sort(
     (a, b) =>
@@ -178,9 +179,9 @@ if (collectionType === "feeds") {
         </div>
       ) : (
         sortedBlogItems.map(async (item, idx) => {
-          const { data, slug } = item;
+          const { data, id: slug } = item;
           const { remarkPluginFrontmatter } =
-            await item.render();
+            await render(item);
           const minutesRead =
             data.minutesRead ||
             remarkPluginFrontmatter.minutesRead;
@@ -230,9 +231,9 @@ if (collectionType === "feeds") {
         </div>
       ) : (
         sortedBlogItems.map(async (item, idx) => {
-          const { data, slug } = item;
+          const { data, id: slug } = item;
           const { remarkPluginFrontmatter } =
-            await item.render();
+            await render(item);
           const minutesRead =
             data.minutesRead ||
             remarkPluginFrontmatter.minutesRead;
@@ -372,5 +373,5 @@ if (collectionType === "feeds") {
 {
   !VALID_COLLECTION_TYPE.includes(
     collectionType,
-  ) && <Warning html={WARNING} />
+  ) && <Warning rawHTMLString={WARNING} />
 }

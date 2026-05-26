@@ -1,4 +1,4 @@
-import type { CollectionEntry, ContentCollectionKey } from 'astro:content'
+import type { ContentCollectionKey } from 'astro:content'
 import { getCollection } from 'astro:content'
 
 /**
@@ -13,10 +13,10 @@ import { getCollection } from 'astro:content'
  */
 export async function getFilteredPosts(
   contentCollectionType: ContentCollectionKey,
-): Promise<CollectionEntry<ContentCollectionKey>[]> {
-  return await getCollection(contentCollectionType, ({ data }) => {
+): Promise<any[]> {
+  return await getCollection(contentCollectionType, ({ data }: any) => {
     return import.meta.env.PROD ? !data.draft : true
-  })
+  }) as any
 }
 
 /**
@@ -26,9 +26,9 @@ export async function getFilteredPosts(
  * @returns {CollectionEntry<ContentCollectionKey>[]} - The sorted array of posts.
  */
 export function getSortedPosts(
-  posts: CollectionEntry<ContentCollectionKey>[],
-): CollectionEntry<ContentCollectionKey>[] {
+  posts: any[],
+): any[] {
   return posts.sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+    (a: any, b: any) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
   )
 }

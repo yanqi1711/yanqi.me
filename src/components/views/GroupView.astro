@@ -11,8 +11,8 @@ interface Props {
 
 const { pageToc } = Astro.props
 
-const entry = await getEntry('projects', 'data')
-const { projects } = entry.data
+const entry: any = await getEntry('projects', 'projects')
+const projects = entry.data
 
 const { toc } = FEATURES
 const tocEnabled = Array.isArray(toc) && toc[0] && pageToc

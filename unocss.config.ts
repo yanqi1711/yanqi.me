@@ -1,41 +1,41 @@
+import type {
+  IconNavItem,
+  IconSocialItem,
+  ResponsiveNavItem,
+  ResponsiveSocialItem,
+} from './src/types'
+
 import {
   defineConfig,
   presetAttributify,
-  presetWind3,
   presetIcons,
   presetWebFonts,
+  presetWind3,
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
-
-import projecstData from './src/content/projects/data.json'
-import { extractIconsStartingWithI } from './src/utils/common'
 import { UI } from './src/config'
+import projecstData from './src/content/projects/data.json'
 
-import type {
-  IconNavItem,
-  ResponsiveNavItem,
-  IconSocialItem,
-  ResponsiveSocialItem,
-} from './src/types'
+import { extractIconsStartingWithI } from './src/utils/common'
 
 const { internalNavs, socialLinks } = UI
 
 const navIcons = internalNavs
   .filter(
-    (item) =>
-      item.displayMode !== 'alwaysText' &&
-      item.displayMode !== 'textHiddenOnMobile'
+    item =>
+      item.displayMode !== 'alwaysText'
+      && item.displayMode !== 'textHiddenOnMobile',
   )
-  .map((item) => (item as IconNavItem | ResponsiveNavItem).icon)
+  .map(item => (item as IconNavItem | ResponsiveNavItem).icon)
 
 const socialIcons = socialLinks
   .filter(
-    (item) =>
-      item.displayMode !== 'alwaysText' &&
-      item.displayMode !== 'textHiddenOnMobile'
+    item =>
+      item.displayMode !== 'alwaysText'
+      && item.displayMode !== 'textHiddenOnMobile',
   )
-  .map((item) => (item as IconSocialItem | ResponsiveSocialItem).icon)
+  .map(item => (item as IconSocialItem | ResponsiveSocialItem).icon)
 
 const projectIcons = extractIconsStartingWithI(projecstData.projects)
 
@@ -130,7 +130,6 @@ export default defineConfig({
     // 'i-simple-icons-instagram',
     // 'i-ri-bluesky-fill',
     // 'i-ri-twitter-x-fill',
-
 
     // /* RssLink component */
     // 'i-lucide-rss',

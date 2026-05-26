@@ -1,4 +1,6 @@
+import type { Root } from 'mdast'
 import type { SatoriOptions } from 'satori'
+import type { VFile } from 'vfile'
 import type { BgType } from '../src/types'
 import { Buffer } from 'node:buffer'
 import { readFileSync, writeFileSync } from 'node:fs'
@@ -80,7 +82,11 @@ function remarkGenerateOgImage() {
 
   const { authorOrBrand, fallbackTitle, fallbackBgType } = ogImage[1]
 
-  return async (_tree: any, file: { basename: any, data: { astro: { frontmatter: { draft: any, redirect: any, title: any, ogImage: any, bgType: any } } }, extname: any, dirname: any, path: any }) => {
+  return async (_tree: Root, file: VFile) => {
+    const frontmatter = file.data.astro?.frontmatter as Record<string, any> | undefined
+    if (!frontmatter)
+      return
+
     // regenerate fallback
     if (!checkFileExistsInDir('public/og-images', 'og-image.png')) {
       await generateOgImage(
@@ -97,22 +103,22 @@ function remarkGenerateOgImage() {
       return
 
     // check draft & redirect
-    const draft = file.data.astro.frontmatter.draft
-    const redirect = file.data.astro.frontmatter.redirect
+    const draft = frontmatter.draft
+    const redirect = frontmatter.redirect
     if (draft || redirect)
       return
 
     // check if it need to be skipped
-    const title = file.data.astro.frontmatter.title
+    const title = frontmatter.title
     if (!title || !title.trim().length)
       return
-    const ogImage = file.data.astro.frontmatter.ogImage
+    const ogImage = frontmatter.ogImage
     if (ogImage === false)
       return
 
     // check if it has been generated
     const extname = file.extname
-    const dirpath = file.dirname
+    const dirpath = file.dirname || ''
     let nameWithoutExt = basename(filename, extname)
     if (nameWithoutExt === 'index')
       nameWithoutExt = basename(dirpath)
@@ -140,7 +146,7 @@ function remarkGenerateOgImage() {
     }
 
     // get bgType
-    const pageBgType = file.data.astro.frontmatter.bgType
+    const pageBgType = frontmatter.bgType
     const bgType = pageBgType || fallbackBgType
 
     // generate og images

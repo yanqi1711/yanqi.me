@@ -6,10 +6,10 @@ import { getUrl } from '~/utils/common'
 export async function GET() {
   const blog = await getCollection('blog')
 
-  const filteredBlogitems = blog.filter((item) => !item.data.draft)
+  const filteredBlogitems = blog.filter(item => !item.data.draft)
 
   const sortedBlogItems = filteredBlogitems.sort(
-    (a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate)
+    (a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate),
   )
 
   return rss({
@@ -24,7 +24,7 @@ export async function GET() {
         <link>${SITE.website}</link>
       </image>`,
 
-    items: sortedBlogItems.map((item) => ({
+    items: sortedBlogItems.map(item => ({
       title: `${item.data.title}`,
       link: getUrl(`/blog/${item.slug}`),
       pubDate: item.data.pubDate,

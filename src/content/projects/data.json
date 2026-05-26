@@ -1,5 +1,4 @@
 {
-  "$schema": "../../../.astro/collections/projects.schema.json",
   "projects": {
     "Astro Ecosystem": [
       {

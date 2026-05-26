@@ -4,10 +4,10 @@
  */
 /// <reference types="mdast-util-directive" />
 
-import { visit } from 'unist-util-visit'
+import type { Paragraph, PhrasingContent, Root } from 'mdast'
 
-import type { Root, Paragraph, PhrasingContent } from 'mdast'
-import type { MarkdownVFile } from '@astrojs/markdown-remark'
+import type { VFile } from 'vfile'
+import { visit } from 'unist-util-visit'
 
 const IMAGE_DIR_REGEXP = /^image-(.*)/
 const VALID_TAGS_FOR_IMG = new Set<string>([
@@ -28,9 +28,10 @@ const VALID_TAGS_FOR_IMG = new Set<string>([
  * Convert `:::image-*` into container elements for images.
  */
 function remarkImageContainer() {
-  return (tree: Root, file: MarkdownVFile) => {
+  return (tree: Root, file: VFile) => {
     visit(tree, (node) => {
-      if (node.type !== 'containerDirective') return
+      if (node.type !== 'containerDirective')
+        return
 
       if (node.name === 'image-figure') {
         /* image-figure */
@@ -43,24 +44,26 @@ function remarkImageContainer() {
 
         // handle figcaption text
         // priority: content inside [] of `:::image-figure[]{}`、`![]()`
-        let content: PhrasingContent[]
+        let content: PhrasingContent[] = []
         if (
-          children[0].type === 'paragraph' &&
-          children[0].data?.directiveLabel &&
-          children[0].children[0].type === 'text'
+          children[0].type === 'paragraph'
+          && children[0].data?.directiveLabel
+          && children[0].children[0].type === 'text'
         ) {
           content = children[0].children
           children.shift()
-        } else if (
-          children[0].type === 'paragraph' &&
-          children[0].children[0].type === 'image' &&
-          children[0].children[0].alt
+        }
+        else if (
+          children[0].type === 'paragraph'
+          && children[0].children[0].type === 'image'
+          && children[0].children[0].alt
         ) {
           content = [{ type: 'text', value: children[0].children[0].alt }]
-        } else {
+        }
+        else {
           file.fail(
             'The figcaption text is missing in the `image-figure` directive. Specify it in the `[]` of `:::image-figure[]{}` or `![]()`.',
-            node
+            node,
           )
         }
 
@@ -75,13 +78,15 @@ function remarkImageContainer() {
         }
 
         children.push(figcaptionNode)
-      } else if (node.name === 'image-a') {
+      }
+      else if (node.name === 'image-a') {
         /* image-a */
-        if (!node.attributes || !node.attributes.href)
+        if (!node.attributes || !node.attributes.href) {
           file.fail(
             'Unexpectedly missing `href` in the `image-a` directive.',
-            node
+            node,
           )
+        }
 
         const data = node.data || (node.data = {})
         const attributes = node.attributes || {}
@@ -89,7 +94,8 @@ function remarkImageContainer() {
         data.hName = 'a'
         const defaultAttrs = { target: '_blank' }
         data.hProperties = { ...defaultAttrs, ...attributes }
-      } else if (node.name.match(IMAGE_DIR_REGEXP)) {
+      }
+      else if (IMAGE_DIR_REGEXP.test(node.name)) {
         /* image-* */
         const match = node.name.match(IMAGE_DIR_REGEXP)
         if (match && VALID_TAGS_FOR_IMG.has(match[1])) {
@@ -100,10 +106,11 @@ function remarkImageContainer() {
           data.hProperties = attributes
 
           // node.children.splice(0, 1, node.children[0].children[0])
-        } else {
+        }
+        else {
           file.fail(
             'The `image-*` directive failed to match a valid tag.',
-            node
+            node,
           )
         }
       }

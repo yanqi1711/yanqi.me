@@ -5,7 +5,7 @@ export function dispatchToggleBackdrop(visible: boolean) {
   document.dispatchEvent(
     new CustomEvent('toggle-backdrop', {
       detail: { visible },
-    })
+    }),
   )
 }
 
@@ -23,16 +23,18 @@ export function dispatchToggleBackdrop(visible: boolean) {
 export function toggleFadeEffect(
   elementId: string,
   visible: boolean,
-  hiddenClass: string
+  hiddenClass: string,
 ) {
   const element = document.getElementById(elementId)
-  if (!element) return
+  if (!element)
+    return
 
   if (visible) {
     // console.log('open', element)
     element.classList.remove(hiddenClass)
     element.classList.add('fade-in')
-  } else {
+  }
+  else {
     // console.log('close', element)
     element.classList.add('fade-out')
     element.addEventListener(
@@ -41,7 +43,7 @@ export function toggleFadeEffect(
         element.classList.remove('fade-in', 'fade-out')
         element.classList.add(hiddenClass)
       },
-      { once: true }
+      { once: true },
     )
   }
 }

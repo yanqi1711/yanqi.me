@@ -43,11 +43,6 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
-  experimental: {
-    contentLayer: true,
-    contentIntellisense: true,
-    directRenderScript: true,
-  },
   vite: {
     build: { chunkSizeWarningLimit: 1200 },
   },
