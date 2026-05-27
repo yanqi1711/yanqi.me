@@ -1,0 +1,189 @@
+---
+import type { Photo } from '~/data/photos'
+
+interface Props {
+  photos: Photo[]
+}
+
+const { photos } = Astro.props
+const hasPhotos = photos.length > 0
+---
+
+<div class="photos-gallery">
+  {
+    hasPhotos && (
+      <div class="absolute left-6 top-20 z-10 flex flex-col items-center justify-center gap-1 sm:fixed">
+        <button
+          id="photos-view-toggle"
+          class="cursor-pointer rounded-full p-2 opacity-20 transition hover:bg-[#8881] hover:opacity-100"
+          title="Switch view"
+        >
+          <span id="photos-view-icon-cover" class="i-ri-grid-line text-xl"></span>
+          <span id="photos-view-icon-contain" class="i-ri-layout-masonry-line text-xl hidden"></span>
+        </button>
+      </div>
+    )
+  }
+
+  <!-- Photo Grid -->
+  {hasPhotos ? (
+    <div
+      id="photos-grid"
+      class="photos mx-auto grid max-w-[125rem] grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+    >
+      {photos.map((photo, index) => (
+        <div>
+          <img
+            src={photo.src}
+            alt={photo.alt || ''}
+            data-photo-index={index}
+            loading="lazy"
+            decoding="async"
+            class="photos-img w-full object-cover aspect-square"
+            data-full={photo.src}
+          />
+        </div>
+      ))}
+    </div>
+  ) : (
+    <div class="prose m-auto text-center">
+      <p class="opacity-50 italic">
+        No photos yet. Add image files to <code>public/photos/</code> and list
+        them in <code>src/data/photos.ts</code>.
+      </p>
+    </div>
+  )}
+
+  <!-- Lightbox -->
+  <div
+    id="photos-lightbox"
+    class="fixed inset-0 z-[500] items-center justify-center backdrop-blur-md" style="display: none;"
+  >
+    <div id="photos-lightbox-backdrop" class="absolute inset-0 -z-[1] bg-black/50"></div>
+    <img
+      id="photos-lightbox-img"
+      src=""
+      alt=""
+      class="relative max-h-full max-w-full object-contain"
+    />
+  </div>
+</div>
+
+<script>
+  function initPhotoGallery() {
+    const toggle = document.getElementById('photos-view-toggle')
+    const toggleIconCover = document.getElementById('photos-view-icon-cover')
+    const toggleIconContain = document.getElementById('photos-view-icon-contain')
+    const grid = document.getElementById('photos-grid')
+    if (!toggle || !grid) return
+
+    const STORAGE_KEY = 'antfu-gallery-view'
+    let viewMode = localStorage.getItem(STORAGE_KEY) || 'cover'
+
+    function applyView(mode: string) {
+      viewMode = mode
+      localStorage.setItem(STORAGE_KEY, mode)
+      const imgs = grid!.querySelectorAll('.photos-img')
+      imgs.forEach((img) => {
+        if (mode === 'cover') {
+          img.classList.add('object-cover', 'aspect-square')
+          img.classList.remove('object-contain')
+        } else {
+          img.classList.remove('object-cover')
+          img.classList.add('object-contain', 'aspect-square')
+        }
+      })
+      if (toggleIconCover && toggleIconContain) {
+        toggleIconCover.classList.toggle('hidden', mode !== 'cover')
+        toggleIconContain.classList.toggle('hidden', mode !== 'contain')
+      }
+    }
+
+    applyView(viewMode)
+    toggle.addEventListener('click', () => {
+      applyView(viewMode === 'cover' ? 'contain' : 'cover')
+    })
+
+    // --- Lightbox ---
+    const lightbox = document.getElementById('photos-lightbox')
+    const lightboxImg = document.getElementById('photos-lightbox-img') as HTMLImageElement | null
+    const lightboxBackdrop = document.getElementById('photos-lightbox-backdrop')
+
+    if (!lightbox || !lightboxImg) return
+
+    let currentIndex = -1
+    const items = grid.querySelectorAll('.photos-img')
+
+    function openLightbox(img: HTMLImageElement) {
+      const index = Number.parseInt(img.dataset.photoIndex || '0')
+      currentIndex = index
+      lightboxImg!.src = img.dataset.full || img.src
+      lightbox!.style.display = 'flex'
+      document.body.style.overflow = 'hidden'
+    }
+
+    function closeLightbox() {
+      lightbox!.style.display = 'none'
+      document.body.style.overflow = ''
+      currentIndex = -1
+    }
+
+    // Click to open — antfu's mobile conflict prevention
+    items.forEach((img) => {
+      img.addEventListener('click', async () => {
+        const pos = img.getBoundingClientRect()
+        await new Promise(resolve => setTimeout(resolve, 50))
+        const newPos = img.getBoundingClientRect()
+        if (pos.left !== newPos.left || pos.top !== newPos.top)
+          return
+        openLightbox(img as HTMLImageElement)
+      })
+    })
+
+    // Click backdrop to close, click image does not close
+    lightboxBackdrop?.addEventListener('click', closeLightbox)
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox()
+    })
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.style.display === 'none') return
+      if (e.key === 'Escape') {
+        closeLightbox()
+        e.preventDefault()
+      }
+      if (e.key === 'ArrowRight' && currentIndex >= 0) {
+        const nextImg = document.querySelector(`img[data-photo-index="${currentIndex + 1}"]`) as HTMLImageElement | null
+        if (nextImg) {
+          openLightbox(nextImg)
+          e.preventDefault()
+        }
+      }
+      if (e.key === 'ArrowLeft' && currentIndex >= 0) {
+        const prevImg = document.querySelector(`img[data-photo-index="${currentIndex - 1}"]`) as HTMLImageElement | null
+        if (prevImg) {
+          openLightbox(prevImg)
+          e.preventDefault()
+        }
+      }
+    })
+  }
+
+  initPhotoGallery()
+  document.addEventListener('astro:page-load', initPhotoGallery)
+</script>
+
+<style>
+  .photos-img {
+    transition: opacity 0.3s ease;
+  }
+  /* Fade transition for lightbox */
+  #photos-lightbox {
+    animation: photos-fade-in 0.2s ease;
+  }
+  @keyframes photos-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+</style>

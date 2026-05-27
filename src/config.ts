@@ -34,6 +34,13 @@ export const UI: Ui = {
       text: 'Record',
       icon: 'i-ri-draft-line',
     },
+    {
+      path: '/photos',
+      title: 'Photos',
+      displayMode: 'iconToTextOnMobile',
+      text: 'Photos',
+      icon: 'i-ri-camera-lens-line',
+    },
   ],
   socialLinks: [
     {

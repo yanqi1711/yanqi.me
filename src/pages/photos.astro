@@ -1,0 +1,25 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import PhotoGrid from "~/components/widgets/PhotoGrid.astro";
+import { photos } from "~/data/photos";
+
+const title = "Photos";
+const description = "Photo Gallery";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  bgType={false}
+  ogImage={false}
+>
+  <!-- <header class="prose m-auto mb-10 text-center">
+    <h1 class="slide-enter-50 mb-0 text-2xl font-normal tracking-wide">{title}</h1>
+  </header> -->
+  <PhotoGrid photos={photos} />
+  <div
+    class="prose m-auto mt-16 text-center text-sm opacity-50"
+  >
+    <p>Thanks for viewing my photos.</p>
+  </div>
+</BaseLayout>
