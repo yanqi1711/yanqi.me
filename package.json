@@ -18,7 +18,7 @@
     "compress-photos": "npx tsx scripts/compress-photos.ts"
   },
   "dependencies": {
-    "astro": "^6.3.7",
+    "astro": "6.3.7",
     "nprogress": "^0.2.0"
   },
   "devDependencies": {
