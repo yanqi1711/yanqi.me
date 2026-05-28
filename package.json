@@ -14,7 +14,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "toolbar:on": "astro preferences enable devToolbar",
-    "toolbar:off": "astro preferences disable devToolbar"
+    "toolbar:off": "astro preferences disable devToolbar",
+    "compress-photos": "npx tsx scripts/compress-photos.ts"
   },
   "dependencies": {
     "astro": "^6.3.7",
