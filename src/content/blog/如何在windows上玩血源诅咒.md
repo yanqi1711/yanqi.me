@@ -30,14 +30,14 @@ ogImage: true
   - 找到游戏本体 pkg 文件
   - 选择解压后的文件路径
   - 点击 "Extract" 开始解压
-3. 1.09补丁更新.pkg重复上述步骤
+3. 对 1.09 补丁 pkg 重复上述步骤
 4. 使用 BBLauncher 下载 BUILDS
   - 点击 "Manage Builds" 按钮
   - 选择你先要下载到的路径
   - 选择你想要的版本并且下载
 
-现在你的游戏本地、补丁、shadPS4都准备完毕了，对应如下图
-![BBLauncer](../../assets/bloodborne/BBLauncher.png)
+现在你的游戏本体、补丁、shadPS4 都准备完毕了，对应如下图
+![BBLauncher](../../assets/bloodborne/BBLauncher.png)
 
 ## 使用一些重要的补丁
 
