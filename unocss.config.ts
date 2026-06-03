@@ -125,14 +125,17 @@ export default defineConfig({
     'left-[14%]',
     'lt-lg:left--4',
 
-    // /* Home page social links */
-    // 'i-simple-icons-github',
-    // 'i-simple-icons-instagram',
-    // 'i-ri-bluesky-fill',
-    // 'i-ri-twitter-x-fill',
+    /* Home page social links */
+    'i-simple-icons-github',
+    'i-simple-icons-instagram',
+    'i-ri-bluesky-fill',
+    'i-ri-twitter-x-fill',
 
     // /* RssLink component */
     // 'i-lucide-rss',
+
+    /* Home page at icon */
+    'i-carbon-at',
 
     // /* remark-directive-sugar */
     // 'i-carbon-logo-github',

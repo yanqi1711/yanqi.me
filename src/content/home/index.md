@@ -8,37 +8,29 @@ My future goal is to be a full-stack developer in the real artificial intelligen
 
 ---
 
-<p>
-  <span class="inline-block mr-1.5 mb-2">Find me on</span>
-  <span class="inline-flex flex-wrap gap-2 op-75 hover:op-100">
-    <a
-      href="https://github.com/yanqi1711"
-      target="_blank"
-      aria-label="Find me on GitHub (external link)"
-    >
-      <span i-simple-icons-github></span> GitHub
+Find me on
+<p flex="~ gap-2 wrap">
+    <a href="https://github.com/yanqi1711" target="_blank">
+      <span class="i-simple-icons-github"></span> GitHub
     </a>
     <a
       href="https://bsky.app/profile/yanqi.me"
       target="_blank"
-      aria-label="Find me on GitHub (external link)"
     >
-      <span i-ri-bluesky-fill></span> BlueSky
+      <span op75 class="i-ri-bluesky-fill"></span> BlueSky
     </a>
     <a
       href="https://x.com/yanqi1713"
       target="_blank"
-      aria-label="Find me on Twitter (external link)"
     >
-      <span i-ri-twitter-x-fill></span> Twitter
+      <span op75 class="i-ri-twitter-x-fill"></span> Twitter
     </a>
     <a
       href="https://www.instagram.com/yanqi1711/"
       target="_blank"
-      aria-label="Find me on Instagram (external link)"
     >
-      <span i-simple-icons-instagram></span> Instagram
+      <span op75 class="i-simple-icons-instagram"></span> Instagram
     </a>
-  </span><br>
-  Or mail me at hi@yanqi.me
 </p>
+
+Or mail me at <span font-mono>hi<span class="i-carbon-at"></span>yanqi.me</span>
