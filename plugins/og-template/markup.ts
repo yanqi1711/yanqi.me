@@ -17,6 +17,7 @@ export function ogImageMarkup(authorOrBrand: string, title: string, bgType: BgTy
     <div tw="flex items-center justify-start w-full px-18" style="gap: 20px">
       <div tw="self-start flex justify-center items-center">
         <svg
+          width="176" height="215"
           viewBox="0 0 176 215" fill="none"
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
