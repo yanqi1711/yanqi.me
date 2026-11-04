@@ -4,7 +4,7 @@
   "version": "1.2.0",
   "license": "MIT",
   "engines": {
-    "node": "^18.0.0 || >=20.0.0"
+    "node": ">=22.23.4"
   },
   "scripts": {
     "astro": "astro",
@@ -66,6 +66,7 @@
     "globals": "^17.14.0",
     "hastscript": "^9.0.3",
     "html-entities": "^2.6.0",
+    "katex": "^0.16.47",
     "mdast-util-directive": "^3.2.0",
     "mdast-util-to-hast": "^13.2.1",
     "mdast-util-to-string": "^4.0.0",
