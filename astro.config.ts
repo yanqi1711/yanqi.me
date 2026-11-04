@@ -1,3 +1,4 @@
+import { unified } from '@astrojs/markdown-remark'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import astroExpressiveCode from 'astro-expressive-code'
@@ -35,10 +36,11 @@ export default defineConfig({
   site: SITE.website,
   base: SITE.base,
   integrations,
+  // Astro 7 defaults to 'jsx', which strips whitespace between inline elements.
+  compressHTML: true,
   markdown: {
     syntaxHighlight: false,
-    remarkPlugins,
-    rehypePlugins,
+    processor: unified({ remarkPlugins, rehypePlugins }),
   },
   devToolbar: {
     enabled: false,

@@ -1,6 +1,11 @@
 /// <reference types="astro/client" />
 
 /**
+ * Adds `hName`, `hProperties` and `hChildren` to mdast node data for the remark plugins.
+ */
+/// <reference types="mdast-util-to-hast" />
+
+/**
  * @see https://docs.astro.build/en/tutorials/add-content-collections/#create-a-collection-for-your-blog-posts
  */
 /// <reference path="../.astro/types.d.ts" />
