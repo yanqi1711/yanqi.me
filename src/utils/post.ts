@@ -15,7 +15,9 @@ export async function getFilteredPosts(
   contentCollectionType: ContentCollectionKey,
 ): Promise<any[]> {
   return await getCollection(contentCollectionType, ({ data }: any) => {
-    return import.meta.env.PROD ? !data.draft : true
+    return import.meta.env.PROD
+      ? !data.draft
+      : true
   }) as any
 }
 

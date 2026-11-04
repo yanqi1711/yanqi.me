@@ -111,7 +111,10 @@ export default defineConfig({
   ],
 
   // provides a unified interface to transform source code in order to support conventions
-  transformers: [transformerDirectives(), transformerVariantGroup()],
+  transformers: [
+    transformerDirectives(),
+    transformerVariantGroup(),
+  ],
 
   // work around the limitation of dynamically constructed utilities
   // https://unocss.dev/guide/extracting#limitations

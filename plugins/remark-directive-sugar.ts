@@ -319,7 +319,9 @@ function remarkDirectiveSugar() {
                   class: 'sugar-link-github',
                   href: resolvedLink,
                 },
-                children: [{ type: 'text', value: resolvedText }],
+                children: [
+                  { type: 'text', value: resolvedText },
+                ],
               },
             ]
           }

@@ -58,7 +58,9 @@ function remarkImageContainer() {
           && children[0].children[0].type === 'image'
           && children[0].children[0].alt
         ) {
-          content = [{ type: 'text', value: children[0].children[0].alt }]
+          content = [
+            { type: 'text', value: children[0].children[0].alt },
+          ]
         }
         else {
           file.fail(
@@ -93,7 +95,10 @@ function remarkImageContainer() {
 
         data.hName = 'a'
         const defaultAttrs = { target: '_blank' }
-        data.hProperties = { ...defaultAttrs, ...attributes }
+        data.hProperties = {
+          ...defaultAttrs,
+          ...attributes,
+        }
       }
       else if (IMAGE_DIR_REGEXP.test(node.name)) {
         /* image-* */

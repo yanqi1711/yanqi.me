@@ -31,7 +31,9 @@ async function compress() {
     }
 
     processed = processed[format as 'jpeg' | 'png']({
-      quality: format === 'png' ? 100 : 80,
+      quality: format === 'png'
+        ? 100
+        : 80,
     })
 
     const outBuffer = await processed.toBuffer()

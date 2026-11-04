@@ -21,7 +21,10 @@ export const pageSchema = z.object({
       'Provides a brief description, used in meta tags for SEO and sharing purposes. If not needed, leave the field as an empty string or delete it, and the `SITE.description` will be used directly.',
     ),
   bgType: z
-    .union([z.literal(false), z.enum(['plum', 'dot'])])
+    .union([
+      z.literal(false),
+      z.enum(['plum', 'dot']),
+    ])
     .default(false)
     .describe(
       'Specifies whether to apply a background on this page and select its type. If not needed, delete the field or set to `false`.',
@@ -33,7 +36,10 @@ export const pageSchema = z.object({
       'Controls whether the table of contents (TOC) is generated for the page.',
     ),
   ogImage: z
-    .union([z.string(), z.boolean()])
+    .union([
+      z.string(),
+      z.boolean(),
+    ])
     .default(true)
     .describe(
       'Specifies the Open Graph (OG) image for social media sharing. To auto-generate OG image, delete the field or set to `true`. To disable it, set the field to `false`. To use a custom image, provide the full filename from `/public/og-images/`.',
@@ -68,7 +74,10 @@ export const postSchema = z.object({
       '**Requirde**. Specifies the publication date. See supported formats [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse#examples).',
     ),
   lastModDate: z
-    .union([z.coerce.date(), z.literal('')])
+    .union([
+      z.coerce.date(),
+      z.literal(''),
+    ])
     .optional()
     .describe(
       'Tracks the last modified date. If not needed, leave the field as an empty string or delete it.',
@@ -110,7 +119,10 @@ export const postSchema = z.object({
       'Controls whether social sharing options are available for the post.',
     ),
   ogImage: z
-    .union([z.string(), z.boolean()])
+    .union([
+      z.string(),
+      z.boolean(),
+    ])
     .default(true)
     .describe(
       'Specifies the Open Graph (OG) image for social media sharing. To auto-generate OG image, delete the field or set to `true`. To disable it, set the field to `false`. To use a custom image, provide the full filename from `/public/og-images/`.',

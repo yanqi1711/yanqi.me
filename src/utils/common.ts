@@ -47,7 +47,9 @@ export function getUrl(...paths: string[]): string {
  * Ensures that a given pathname ends with a trailing slash.
  */
 export function ensureTrailingSlash(pathname: string): string {
-  return pathname.endsWith('/') ? pathname : `${pathname}/`
+  return pathname.endsWith('/')
+    ? pathname
+    : `${pathname}/`
 }
 
 /**

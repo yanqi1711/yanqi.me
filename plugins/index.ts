@@ -64,7 +64,10 @@ export const remarkPlugins: RemarkPlugins = [
 
 export const rehypePlugins: RehypePlugins = [
   // https://docs.astro.build/en/guides/markdown-content/#heading-ids-and-plugins
-  [rehypeHeadingIds, { headingIdCompat: true }],
+  [
+    rehypeHeadingIds,
+    { headingIdCompat: true },
+  ],
   // https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex
   rehypeKatex,
   // https://github.com/lin-stephanie/rehype-callouts
@@ -78,7 +81,9 @@ export const rehypePlugins: RehypePlugins = [
   [
     rehypeExternalLinks,
     {
-      rel: UI.externalLink.newTab ? 'noopener noreferrer' : [],
+      rel: UI.externalLink.newTab
+        ? 'noopener noreferrer'
+        : [],
       content: (el: Parameters<CreateProperties>[0]) => {
         if (!UI.externalLink.newTab || !UI.externalLink.showNewTabIcon)
           return null
@@ -156,7 +161,9 @@ export const rehypePlugins: RehypePlugins = [
           'class': 'header-anchor',
           'tab-index': 0,
           'aria-hidden': 'false',
-          'aria-label': content ? `Link to ${content}` : undefined,
+          'aria-label': content
+            ? `Link to ${content}`
+            : undefined,
           // avoid `#` being indexed and show in search results
           'data-pagefind-ignore': '',
         }

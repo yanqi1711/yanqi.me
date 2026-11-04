@@ -39,4 +39,12 @@ const feeds = defineCollection({
   }),
 })
 
-export const collections = { pages, home, blog, projects, record, streams, feeds }
+export const collections = {
+  pages,
+  home,
+  blog,
+  projects,
+  record,
+  streams,
+  feeds,
+}

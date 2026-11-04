@@ -14,14 +14,19 @@ export default defineEcConfig({
   minSyntaxHighlightingColorContrast: 0,
 
   /* Plugins */
-  plugins: [pluginLineNumbers(), pluginCollapsibleSections()],
+  plugins: [
+    pluginLineNumbers(),
+    pluginCollapsibleSections(),
+  ],
 
   /* Styles */
   styleOverrides: {
     uiFontFamily: '\'DM Mono\', \'Input Mono\', \'Fira Code\', \'monospace\'',
     uiFontSize: '1em',
     codeBackground: context =>
-      context.theme.name === 'vitesse-dark' ? '#0e0e0e' : '#fafafa',
+      context.theme.name === 'vitesse-dark'
+        ? '#0e0e0e'
+        : '#fafafa',
     codeFontFamily: '\'DM Mono\', \'Input Mono\', \'Fira Code\', \'monospace\'',
     codeFontSize: '14.72px',
     codeLineHeight: '1.4',
@@ -34,7 +39,9 @@ export default defineEcConfig({
       inlineButtonBackgroundActiveOpacity: '0.2',
       inlineButtonBackgroundHoverOrFocusOpacity: '0.1',
       terminalBackground: ({ theme }) =>
-        theme.name === 'vitesse-dark' ? '#0e0e0e' : '#fafafa',
+        theme.name === 'vitesse-dark'
+          ? '#0e0e0e'
+          : '#fafafa',
       tooltipSuccessBackground: ({ theme }) =>
         setLuminance(theme.colors['terminal.ansiGreen'] || '#0dbc79', 0.22),
     },
@@ -57,7 +64,9 @@ export default defineEcConfig({
   themes: ['vitesse-dark', 'vitesse-light'],
   themeCssRoot: ':root',
   themeCssSelector: theme =>
-    theme.name === 'vitesse-dark' ? ':root.dark' : ':root:not(.dark)',
+    theme.name === 'vitesse-dark'
+      ? ':root.dark'
+      : ':root:not(.dark)',
   useDarkModeMediaQuery: false,
   useStyleReset: false,
 })
