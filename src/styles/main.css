@@ -194,6 +194,16 @@ html {
   .slide-enter-content>*:nth-child(20) {
     --enter-stage: 20 !important;
   }
+
+  /* Keep the stagger going past the 20th child (e.g. a link-only line at the
+     end of an article). Capped so long documents don't wait seconds to show
+     their later content. Browsers without `sibling-index()` fall back to the
+     `:nth-child` rules above. */
+  @supports (animation-delay: calc(sibling-index() * 1ms)) {
+    html:not(.no-sliding) .slide-enter-content>*:not(:has(.table-of-contents)) {
+      --enter-stage: min(sibling-index(), 20) !important;
+    }
+  }
 }
 
 /* View Transition API */
