@@ -6,6 +6,7 @@ export interface Photo {
 }
 
 export const photos: Photo[] = [
+  { src: '/photos/p-2026-11-09-19-08-09-000-1.jpg', alt: '手持尼康相机拍照的人' },
   { src: '/photos/p-2026-05-28-20-20-54-000-1.jpg', alt: '' },
   { src: '/photos/p-2026-05-28-20-20-58-000-1.jpg', alt: '' },
   { src: '/photos/p-2026-05-28-20-21-02-000-1.jpg', alt: '' },
